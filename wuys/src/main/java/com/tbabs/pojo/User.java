@@ -1,9 +1,13 @@
 package com.tbabs.pojo;
 
+import java.util.Date;
+
 public class User {
     private Integer id;
     private String name;
-    private String pwd;
+    private String sex;
+    private Integer age;
+    private Date birthday;
 
     public Integer getId() {
         return id;
@@ -21,11 +25,38 @@ public class User {
         this.name = name;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getSex() {
+        return sex;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", birthday=" + birthday +
+                '}';
     }
 }
