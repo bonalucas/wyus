@@ -1,2 +1,2 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:forward page="/main"></jsp:forward>
+<jsp:forward page="/main/login"></jsp:forward>

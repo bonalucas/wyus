@@ -44,6 +44,15 @@
 
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
+            <div style="text-align: center;padding-bottom: 15px;padding-top: 15px;padding-right: 25px">
+                <a href="javascript:;" style="text-align: center">
+                    <img src="${pageContext.request.contextPath}/imgs/head.jpg" class="layui-nav-img" style="width:110px; height: 110px">
+                    <p style="color: #FFFFFF">
+                        欢迎，用户
+                    </p>
+                </a>
+            </div>
+            <hr>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">学生选课</a>
@@ -67,7 +76,54 @@
     </div>
 
     <div class="layui-body">
-        <div style="padding: 15px;">五邑大学选课系统！！！</div>
+        <div style="padding: 15px">
+            <div class="layui-tab layui-tab-card layui-tab-brief" lay-allowclose="true" style="width: 70%">
+                <ul class="layui-tab-title">
+                    <li class="layui-this"><i class="layui-icon layui-icon-home" style="font-size: 14px; font-weight: bold; color: #009688;"></i>&nbsp;&nbsp;学校首页</li>
+                    <li>用户基本管理</li>
+                    <li>权限分配</li>
+                    <li>商品管理</li>
+                    <li>订单管理</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 630px;">
+                    <div class="layui-tab-item layui-show">
+                        <iframe src="${pageContext.request.contextPath}/main/carousel" width="800px" height="350px"></iframe>
+                    </div>
+                    <div class="layui-tab-item">2</div>
+                    <div class="layui-tab-item">3</div>
+                    <div class="layui-tab-item">4</div>
+                    <div class="layui-tab-item">5</div>
+                    <div class="layui-tab-item">6</div>
+                </div>
+            </div>
+
+            <div class="layui-bg-gray" style="padding: 30px;">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md8">
+                        <div class="layui-card">
+                            <div class="layui-card-header">卡片面板</div>
+                            <div class="layui-card-body">
+                                <iframe frameborder="0" src="${pageContext.request.contextPath}/main/carousel"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header">卡片面板</div>
+                            <div class="layui-card-body">
+                                <iframe style="border: 0; width: 500px; height: 180px " src="${pageContext.request.contextPath}/main/zhexian"></iframe>
+                            </div>
+                            <div class="layui-card-body">
+                                <iframe style="border: 0" src="${pageContext.request.contextPath}/main/bingtu"></iframe>
+                            </div>
+                            <div class="layui-card-body">
+                                <iframe style="border: 0" scrolling="no" src="${pageContext.request.contextPath}/main/zhuzhuang"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="layui-footer" style="text-align: center; color:#cccccc;">
@@ -90,8 +146,9 @@
             }
             ,menuRight: function(){
                 layer.open({
-                    type: 1
-                    ,content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                    title:'学校简介'
+                    ,type: 1
+                    ,content: '<iframe src="${pageContext.request.contextPath}/main/jianjie" width="260px" height="100%"></iframe>'
                     ,area: ['260px', '100%']
                     ,offset: 'rt' //右上角
                     ,anim: 5

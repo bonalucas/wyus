@@ -65,7 +65,7 @@
 <body>
     <div id="div1">
         <div id="sp1">五邑大学-选课系统</div>
-        <form action="${pageContext.request.contextPath}/go">
+        <form action="${pageContext.request.contextPath}/main/go">
             <table>
                 <tr>
                     <td>账号</td>

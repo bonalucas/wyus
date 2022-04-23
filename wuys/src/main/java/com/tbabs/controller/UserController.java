@@ -17,16 +17,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/main")
-    public String toLogin(){
-        return "login";
-    }
-
-    @RequestMapping("/go")
-    public String toMain(){
-        return "main";
-    }
-
     @RequestMapping(value = "/getUser", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getUser(Integer id, HttpServletResponse response) {
