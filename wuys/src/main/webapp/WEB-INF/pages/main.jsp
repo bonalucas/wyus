@@ -10,7 +10,9 @@
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">五邑大学选课系统</div>
+        <div class="layui-logo layui-hide-xs layui-bg-black">
+            <a href="${pageContext.request.contextPath}/main/go" style="color: #FFFFFF">五邑大学选课系统</a>
+        </div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                 <i class="layui-icon layui-icon-spread-left"></i>
@@ -58,32 +60,32 @@
                     <a class="" href="javascript:;">学生选课</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/perinf"
+                               data-id="perinf"
                                data-title="<i class='layui-icon layui-icon-username'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;个人信息"
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-username" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人信息</a></dd>
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/courses"
+                               data-id="courses"
                                data-title="<i class='layui-icon layui-icon-read'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;所有课程"
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-read" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;所有课程</a></dd>
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/coursel"
+                               data-id="coursel"
                                data-title="<i class='layui-icon layui-icon-edit'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;个人选课"
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-edit" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人选课</a></dd>
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/upkwd"
+                               data-id="upkwd"
                                data-title="<i class='layui-icon layui-icon-key'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;修改密码"
                                class="site-demo-active"
@@ -95,24 +97,24 @@
                     <a href="javascript:;">管理员选项</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/stuman"
+                               data-id="stuman"
                                data-title="<i class='layui-icon layui-icon-user'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;学生管理"
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-user" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;学生管理</a></dd>
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/courman"
+                               data-id="courman"
                                data-title="<i class='layui-icon layui-icon-app'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;课程管理"
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-app" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;课程管理</a></dd>
                         <dd><a href="javascript:;"
-                               data-url="${pageContext.request.contextPath}/main/grxx"
-                               data-id="grxx"
+                               data-url="${pageContext.request.contextPath}/main/proman"
+                               data-id="proman"
                                data-title="<i class='layui-icon layui-icon-form'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;专业管理"
                                class="site-demo-active"

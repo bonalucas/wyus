@@ -41,8 +41,38 @@ public class MainController {
         return "iframe/jianjie";
     }
 
-    @RequestMapping("/grxx")
-    public String toGrxx() {
-        return "grxx";
+    @RequestMapping("/perinf")
+    public String toPerinf() {
+        return "perinf";
+    }
+
+    @RequestMapping("/proman")
+    public String toProman() {
+        return "proman";
+    }
+
+    @RequestMapping("/coursel")
+    public String toCoursel() {
+        return "coursel";
+    }
+
+    @RequestMapping("/courman")
+    public String toCourman() {
+        return "courman";
+    }
+
+    @RequestMapping("/stuman")
+    public String toStuman() {
+        return "stuman";
+    }
+
+    @RequestMapping("/upkwd")
+    public String toUpkwd() {
+        return "upkwd";
+    }
+
+    @RequestMapping("/courses")
+    public String toCourses() {
+        return "courses";
     }
 }
