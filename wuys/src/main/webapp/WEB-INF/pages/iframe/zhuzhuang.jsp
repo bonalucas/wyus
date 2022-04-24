@@ -8,10 +8,9 @@
 </head>
 <body>
     <!-- 柱状图-->
-    <div class="layui-card" style="margin-left: 300px">
-        <div class="layui-card-header">图表统计</div>
+    <div class="layui-card" style="margin-left: 35px">
         <div class="layui-card-body">
-            <div id="EchartZhuZhuang" style="width: 500px; height: 500px;"></div>
+            <div id="EchartZhuZhuang" style="width: 350px; height: 220px;"></div>
         </div>
     </div>
 </body>
@@ -34,9 +33,9 @@
                 .getElementById('EchartZhuZhuang'));
             //指定图表配置项和数据
             var optionchart = {
-                title : {
-                    text : '数据分析'
-                },
+                // title : {
+                //     text : '数据分析'
+                // },
                 tooltip : {},
                 legend : {
                     data : [ '数据量' ]

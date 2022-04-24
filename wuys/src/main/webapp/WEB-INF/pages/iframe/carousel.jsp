@@ -25,7 +25,7 @@
         //建造实例
         carousel.render({
             elem: '#test1'
-            ,width: '800px' //设置容器宽度
+            ,width: '780px' //设置容器宽度
             ,arrow: 'always' //始终显示箭头
             ,height: '350px'
         });

@@ -8,10 +8,9 @@
 </head>
 <body>
     <!-- 折线图-->
-    <div class="layui-card" style="margin-left: 100px">
-        <div class="layui-card-header">图表统计</div>
+    <div class="layui-card" style="margin-left: 35px">
         <div class="layui-card-body">
-            <div id="EchartZheXian" style="width: 200px; height: 180px;"></div>
+            <div id="EchartZheXian" style="width: 350px; height: 220px;"></div>
         </div>
     </div>
 </body>
@@ -34,9 +33,9 @@
                 .getElementById('EchartZheXian'));
             //指定图表配置项和数据
             var optionchartZhe = {
-                title : {
-                    text : '数据分析'
-                },
+                // title : {
+                //     text : '数据分析'
+                // },
                 tooltip : {},
                 legend : { //顶部显示 与series中的数据类型的name一致
                     data : [ '销量', '产量', '营业额', '单价' ]

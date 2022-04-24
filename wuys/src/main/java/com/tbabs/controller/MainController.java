@@ -40,4 +40,9 @@ public class MainController {
     public String iframe4() {
         return "iframe/jianjie";
     }
+
+    @RequestMapping("/grxx")
+    public String toGrxx() {
+        return "grxx";
+    }
 }
