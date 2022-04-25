@@ -128,6 +128,19 @@
                    anim: 6,
                    area:['200px','50px']
                });
+           }else{
+               $.ajax({
+                   url: "${pageContext.request.contextPath}/checkUser",
+                   data:{username:usernameVal},
+                   dataType:"text",
+                   success:function (data){
+                       layer.msg(data, {
+                           offset: 't',
+                           anim: 2,
+                           area:['200px','50px']
+                       });
+                   }
+               });
            }
         });
         $("#currpwd").blur(function (){
@@ -161,6 +174,16 @@
                 ,closeBtn: 0
                 ,anim: 6
                 ,icon: 5
+            });
+        }
+        var flag = ${msg != null ? true : false};
+        if (flag) {
+            layer.alert('${msg}', {
+                skin: 'layui-layer-lan'
+                ,title: 'tip'
+                ,closeBtn: 0
+                ,anim: 2
+                ,icon: 6
             });
         }
     </script>

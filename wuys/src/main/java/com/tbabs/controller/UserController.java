@@ -9,10 +9,13 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -69,7 +72,24 @@ public class UserController {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        userService.saveUser(user);
+        Integer res = userService.saveUser(user);
+        if (res <= 0) {
+            request.setAttribute("errorMessage", "注册失败");
+            return "register";
+        }
+        request.setAttribute("msg","注册成功");
         return "login";
+    }
+
+    @RequestMapping(value = "/checkUser", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String checkUser(String username){
+        List<User> userList = userService.selectUser(username);
+
+        if (userList.size() > 0) {
+            return "用户名已被占用";
+        }else{
+            return "当前用户名可用";
+        }
     }
 }
