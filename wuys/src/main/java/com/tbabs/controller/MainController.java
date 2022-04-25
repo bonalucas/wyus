@@ -7,16 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/main")
 public class MainController {
 
-    @RequestMapping("/login")
-    public String toLogin(){
-        return "login";
-    }
-
-    @RequestMapping("/go")
-    public String toMain(){
-        return "main";
-    }
-
     @RequestMapping("/bingtu")
     public String iframe() {
         return "iframe/bingtu";

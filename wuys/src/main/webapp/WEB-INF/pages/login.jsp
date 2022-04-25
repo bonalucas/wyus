@@ -6,7 +6,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized.3.2.7.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized-init.js"></script>
-    <%-- 登录界面样式 --%>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jQuery.md5.js"></script>
+<%-- 登录界面样式 --%>
     <style>
         *{
             margin: 0 auto;
@@ -64,21 +65,26 @@
 </head>
 <body>
     <div id="div1">
-        <div id="sp1">五邑大学-选课系统</div>
-        <form action="${pageContext.request.contextPath}/main/go">
+        <div id="sp1">五邑大学-选课系统-登录</div>
+        <form action="${pageContext.request.contextPath}/doLogin" method="post">
+            <input type="hidden" name="password" id="pwd">
             <table>
                 <tr>
                     <td>账号</td>
-                    <td><input type="text" class="txt"></td>
+                    <td>
+                        <input type="text" class="txt" name="username" id="username">
+                    </td>
                 </tr>
                 <tr>
                     <td>密码</td>
-                    <td><input type="password" class="txt"></td>
+                    <td>
+                        <input type="password" class="txt" id="currpwd">
+                    </td>
                 </tr>
                 <tr>
                     <td>验证码</td>
                     <td>
-                        <input type="text" style="width: 100px" class="txt">
+                        <input type="text" style="width: 100px" class="txt" name="code" id="mycode">
                         <img src="${pageContext.request.contextPath}/verificationcodeimg" id="code" onclick="reloadcode()" alt="验证码" style="position:absolute; right: 130px; width: 80px;height: 40px">
                         <a href="javascript:reloadcodeByA();" style="position: absolute; right: 25px; top: 190px; text-decoration: none" id="next">
                             <span id="sp2">看不清，换一张</span>
@@ -89,7 +95,7 @@
                     <td></td>
                     <td>
                         <input class="sub" type="submit" value="登&nbsp;&nbsp;录">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="sub" type="button" value="注&nbsp;&nbsp;册">
+                        <input class="sub" type="button" id="register" value="注&nbsp;&nbsp;册">
                     </td>
                 </tr>
             </table>
@@ -103,6 +109,59 @@
         function reloadcodeByA() {
             var verify = $("#next").prev();
             verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
+        }
+        $("#register").click(function (){
+            window.location.href="${pageContext.request.contextPath}/register";
+        });
+        $("#currpwd").blur(function (){
+            var pwd = ($.md5($("#currpwd").val()));
+            $("#pwd").val(pwd);
+        });
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
+    <script type="text/javascript">
+        $("#username").blur(function (){
+            var usernameVal = $("#username").val();
+           if (usernameVal === "") {
+               layer.msg('账号不可为空', {
+                   offset: 't',
+                   anim: 6,
+                   area:['200px','50px']
+               });
+           }
+        });
+        $("#currpwd").blur(function (){
+            var pwdVal = $("#currpwd").val();
+            if (pwdVal === "") {
+                layer.msg('密码不可为空', {
+                    offset: 't',
+                    anim: 6,
+                    area:['200px','50px']
+                });
+            }else{
+                var pwd = ($.md5($("#currpwd").val()));
+                $("#pwd").val(pwd);
+            }
+        });
+        $("#mycode").blur(function (){
+            var codeVal = $("#mycode").val();
+            if (codeVal === "" || codeVal.length !== 4) {
+                layer.msg('请输入正确格式的验证码', {
+                    offset: 't',
+                    anim: 6,
+                    area:['250px','50px']
+                });
+            }
+        });
+        var flag = ${errorMessage != null ? true : false};
+        if (flag) {
+            layer.alert('${errorMessage}', {
+                skin: 'layui-layer-lan'
+                ,title: '登录失败'
+                ,closeBtn: 0
+                ,anim: 6
+                ,icon: 5
+            });
         }
     </script>
 </body>

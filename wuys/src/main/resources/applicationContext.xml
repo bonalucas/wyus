@@ -41,6 +41,68 @@
     <!--配置业务逻辑层，给spring扫描识别该包下的所有类，使用注解方式-->
     <context:component-scan base-package="com.tbabs.service"/>
 
+    <!-- 配置 shiro 的核心组件：securityManager -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 配置缓存 -->
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="authenticator" ref="authenticator" />
+        <!-- 配置域realm，用户名，密码，角色都保存在域里：实现从数据库中获取用户信息，需要我们自己创建一个类（实现Realm接口） -->
+        <property name="realm" ref="shiroRealm"/>
+    </bean>
+
+    <!-- 配置ehcache缓存bean，导入ehcache并新建配置文件 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+    </bean>
+
+    <bean id="authenticator"
+          class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+        <property name="authenticationStrategy">
+            <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+        </property>
+    </bean>
+
+    <!-- 配置自己域realm实现  -->
+    <bean id="shiroRealm" class="com.tbabs.shiro.realm.ShiroRealm">
+<!--        <property name="credentialsMatcher">-->
+<!--            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">-->
+<!--                <property name="hashAlgorithmName" value="MD5"/>-->
+<!--                <property name="hashIterations" value="1024"/>-->
+<!--                <property name="storedCredentialsHexEncoded" value="true"/>-->
+<!--            </bean>-->
+<!--        </property>-->
+    </bean>
+
+    <!-- 配置lifecycleBeanPostProcessor，可以自动地来调用配置在Spring Ioc容器中shiro bean的生命周期方法 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 启用IOC容器中使用shiro的注解，但必须配置lifecycleBeanPostProcessor之后才可以使用 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- 配置shiro的一些拦截规则，id必须和web.xml中的 shiro 拦截器名一致 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份认证失败，则跳转到登录页面的配置 -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 登录成功后的页面 -->
+        <property name="successUrl" value="/success"/>
+        <!-- 权限认证失败，则跳转到指定页面 -->
+        <!-- 登录后访问没有权限的页面后跳转的页面 -->
+        <property name="unauthorizedUrl"  value="/unauthorized"/>
+        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
+    </bean>
+
+    <!-- 配置一个bean，该bean实际上是一个Map，通过实例工厂方法的方式 -->
+    <bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapBuilder"
+          factory-method="buildFilterChainDefinitionMap" />
+    <bean id="filterChainDefinitionMapBuilder" class="com.tbabs.shiro.FilterChainDefinitionMapBuilder"/>
+
     <!-- 声明事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>

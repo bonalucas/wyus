@@ -1,17 +1,11 @@
 package com.tbabs.pojo;
 
-import java.util.Date;
-
 public class User {
     private Integer id;
 
-    private String name;
+    private String username;
 
-    private String sex;
-
-    private Integer age;
-
-    private Date birthday;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -21,35 +15,19 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public String getSex() {
-        return sex;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 }
