@@ -66,7 +66,7 @@
 <body>
     <div id="div1">
         <div id="sp1">五邑大学-选课系统-登录</div>
-        <form action="${pageContext.request.contextPath}/doLogin" method="post">
+        <form action="${pageContext.request.contextPath}/user/doLogin" method="post">
             <input type="hidden" name="password" id="pwd">
             <table>
                 <tr>
@@ -111,7 +111,7 @@
             verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
         }
         $("#register").click(function (){
-            window.location.href="${pageContext.request.contextPath}/register";
+            window.location.href="${pageContext.request.contextPath}/user/register";
         });
         $("#currpwd").blur(function (){
             var pwd = ($.md5($("#currpwd").val()));
@@ -127,19 +127,6 @@
                    offset: 't',
                    anim: 6,
                    area:['200px','50px']
-               });
-           }else{
-               $.ajax({
-                   url: "${pageContext.request.contextPath}/checkUser",
-                   data:{username:usernameVal},
-                   dataType:"text",
-                   success:function (data){
-                       layer.msg(data, {
-                           offset: 't',
-                           anim: 2,
-                           area:['200px','50px']
-                       });
-                   }
                });
            }
         });

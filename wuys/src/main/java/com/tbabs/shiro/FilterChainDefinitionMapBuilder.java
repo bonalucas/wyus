@@ -16,11 +16,10 @@ public class FilterChainDefinitionMapBuilder {
     public LinkedHashMap<String, String> buildFilterChainDefinitionMap() {
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("/login", "anon");
-        map.put("/register", "anon");
-        map.put("/logout", "logout");
-//        map.put("/view/admin.jsp", "roles[admin]");
-//        map.put("/**", "authc");
+        map.put("/user/**", "anon");
+        map.put("/user/logout", "logout");
+        // 设置全部页面访问权限为user
+        map.put("/main/**", "roles[user]");
         return map;
     }
 }

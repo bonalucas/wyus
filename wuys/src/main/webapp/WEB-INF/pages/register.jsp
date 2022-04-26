@@ -66,7 +66,7 @@
 <body>
 <div id="div1">
     <div id="sp1">五邑大学-选课系统-注册</div>
-    <form action="${pageContext.request.contextPath}/doRegister" method="post">
+    <form action="${pageContext.request.contextPath}/user/doRegister" method="post">
         <input type="hidden" name="password" id="pwd">
         <table>
             <tr>
@@ -107,7 +107,7 @@
         verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
     }
     $("#back").click(function (){
-       window.location.href="${pageContext.request.contextPath}/login";
+       window.location.href="${pageContext.request.contextPath}/user/login";
     });
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
@@ -119,6 +119,19 @@
                 offset: 't',
                 anim: 6,
                 area:['200px','50px']
+            });
+        }else{
+            $.ajax({
+                url: "${pageContext.request.contextPath}/user/checkUser",
+                data:{username:usernameVal},
+                dataType:"text",
+                success:function (data){
+                    layer.msg(data, {
+                        offset: 't',
+                        anim: 2,
+                        area:['200px','50px']
+                    });
+                }
             });
         }
     });
