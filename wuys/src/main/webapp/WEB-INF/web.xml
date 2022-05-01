@@ -64,4 +64,20 @@
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
+    <!-- 配置异常页面 -->
+    <error-page>
+        <location>/WEB-INF/pages/error/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/pages/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/pages/error/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/pages/error/500.jsp</location>
+    </error-page>
 </web-app>

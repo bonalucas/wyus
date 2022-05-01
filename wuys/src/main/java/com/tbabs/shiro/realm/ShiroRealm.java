@@ -28,8 +28,10 @@ public class ShiroRealm extends AuthorizingRealm {
         Set<String> roles = new HashSet<>();
         roles.add("user");
         // 3. 创建SimpleAuthenticationInfo对象，并设置其reles属性
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setRoles(roles);
         // 4. 返回SimpleAuthenticationInfo对象
-        return new SimpleAuthorizationInfo(roles);
+        return info;
     }
 
         // 登录会被调用的方法
