@@ -3,6 +3,8 @@
 <head>
     <title>Error</title>
 </head>
-<body background="${pageContext.request.contextPath}/imgs/error/error.webp">
+<%--<body background="${pageContext.request.contextPath}/imgs/error/error.webp">--%>
+<body>
+错误
 </body>
 </html>
