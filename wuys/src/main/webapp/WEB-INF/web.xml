@@ -66,9 +66,6 @@
 
     <!-- 配置异常页面 -->
     <error-page>
-        <location>/WEB-INF/pages/error/error.jsp</location>
-    </error-page>
-    <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/pages/error/404.jsp</location>
     </error-page>

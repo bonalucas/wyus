@@ -19,7 +19,7 @@ public class FilterChainDefinitionMapBuilder {
         map.put("/user/**", "anon");
         map.put("/user/logout", "logout");
         // 设置全部页面访问权限为user
-        map.put("/main/**", "roles[admin]");
+        map.put("/main/**", "roles[user]");
         return map;
     }
 }

@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>页面找不到</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>页面异常</title>
 </head>
-<%--<body background="${pageContext.request.contextPath}/imgs/error/404.jpg">--%>
 <body>
-找不到页面
+    <h1>当前页面丢失</h1>
 </body>
 </html>

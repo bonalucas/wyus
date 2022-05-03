@@ -26,7 +26,8 @@ public class ShiroRealm extends AuthorizingRealm {
 //        List<User> user = userService.selectUser((String) principal);
         // 2. 利用登录的用户的信息来获取当前用户的角色或权限（查询数据库）
         Set<String> roles = new HashSet<>();
-        roles.add("user");
+        roles.add("admin");
+//        roles.add("user");
         // 3. 创建SimpleAuthenticationInfo对象，并设置其reles属性
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roles);

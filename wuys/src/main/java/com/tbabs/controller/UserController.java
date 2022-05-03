@@ -43,6 +43,11 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    @RequestMapping("/unauthorized")
+    public String to403(){
+        return "error/403";
+    }
+
     @RequestMapping("/doLogin")
     public String doLogin(String username, String password, HttpServletRequest request, @RequestParam("code") String vercode) {
         String certCode = (String) request.getSession().getAttribute("certCode");
