@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>jianjie</title>
+    <title>简介</title>
 </head>
 <body>
 <h2 style="color: #BC0000">学校简介</h2>

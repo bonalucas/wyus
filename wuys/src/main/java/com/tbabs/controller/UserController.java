@@ -23,28 +23,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    @RequestMapping("/toLogin")
     public String toLogin(){
-        return "login";
+        return "public/login";
     }
 
-    @RequestMapping("/register")
+    @RequestMapping("/toRegister")
     public String toRegister() {
-        return "register";
+        return "public/register";
     }
 
     @RequestMapping("/success")
     public String toMain(){
-        return "main";
+        return "public/main";
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping("/doLogout")
     public String doLogout(){
-        return "redirect:/user/login";
+        return "redirect:/user/toLogin";
     }
 
-    @RequestMapping("/unauthorized")
-    public String to403(){
+    @RequestMapping("/toUD")
+    public String toUD(){
         return "error/403";
     }
 
@@ -53,11 +53,11 @@ public class UserController {
         String certCode = (String) request.getSession().getAttribute("certCode");
         if ("".equals(username) || "".equals(password)) {
             request.setAttribute("errorMessage", "账号或密码为空");
-            return "login";
+            return "public/login";
         }
         if (!vercode.equals(certCode)) {
             request.setAttribute("errorMessage", "验证码错误");
-            return "login";
+            return "public/login";
         }
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
@@ -67,10 +67,10 @@ public class UserController {
                 subject.login(token);
             } catch (UnknownAccountException e) {
                 request.setAttribute("errorMessage", e.getMessage());
-                return "login";
+                return "public/login";
             } catch (IncorrectCredentialsException e){
                 request.setAttribute("errorMessage", "密码错误");
-                return "login";
+                return "public/login";
             }
         }
         return "redirect:/user/success";
@@ -81,7 +81,7 @@ public class UserController {
         String certCode = (String) request.getSession().getAttribute("certCode");
         if (!vercode.equals(certCode)) {
             request.setAttribute("errorMessage", "验证码错误");
-            return "register";
+            return "public/register";
         }
         User user = new User();
         user.setUsername(username);
@@ -89,10 +89,10 @@ public class UserController {
         Integer res = userService.saveUser(user);
         if (res <= 0) {
             request.setAttribute("errorMessage", "注册失败");
-            return "register";
+            return "public/register";
         }
         request.setAttribute("msg","注册成功");
-        return "login";
+        return "public/login";
     }
 
     @RequestMapping(value = "/checkUser", produces = "text/html;charset=utf-8")

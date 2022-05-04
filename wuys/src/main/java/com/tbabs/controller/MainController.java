@@ -7,62 +7,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/main")
 public class MainController {
 
-    @RequestMapping("/bingtu")
-    public String iframe() {
-        return "iframe/bingtu";
+    @RequestMapping("/toPG")
+    public String toPG() {
+        return "iframe/pieGraph";
     }
 
-    @RequestMapping("/carousel")
-    public String iframe1() {
+    @RequestMapping("/toCL")
+    public String toCL() {
         return "iframe/carousel";
     }
-    @RequestMapping("/zhexian")
-    public String iframe2() {
-        return "iframe/zhexian";
+    @RequestMapping("/toSG")
+    public String toSG() {
+        return "iframe/snapGraph";
     }
 
-    @RequestMapping("/zhuzhuang")
-    public String iframe3() {
-        return "iframe/zhuzhuang";
+    @RequestMapping("/toCG")
+    public String toCG() {
+        return "iframe/columnarGraph";
     }
 
-    @RequestMapping("/jianjie")
-    public String iframe4() {
-        return "iframe/jianjie";
+    @RequestMapping("/toSP")
+    public String toSP() {
+        return "iframe/synopsis";
     }
 
-    @RequestMapping("/perinf")
+    @RequestMapping("/toPerinf")
     public String toPerinf() {
-        return "perinf";
+        return "user/perinf";
     }
 
-    @RequestMapping("/proman")
+    @RequestMapping("/toProman")
     public String toProman() {
-        return "proman";
+        return "admin/proman";
     }
 
-    @RequestMapping("/coursel")
+    @RequestMapping("/toCoursel")
     public String toCoursel() {
-        return "coursel";
+        return "user/coursel";
     }
 
-    @RequestMapping("/courman")
+    @RequestMapping("/toCourman")
     public String toCourman() {
-        return "courman";
+        return "admin/courman";
     }
 
-    @RequestMapping("/stuman")
+    @RequestMapping("/toStuman")
     public String toStuman() {
-        return "stuman";
+        return "admin/stuman";
     }
 
-    @RequestMapping("/upkwd")
+    @RequestMapping("/toUpkwd")
     public String toUpkwd() {
-        return "upkwd";
+        return "user/upkwd";
     }
 
-    @RequestMapping("/courses")
+    @RequestMapping("/toCourses")
     public String toCourses() {
-        return "courses";
+        return "user/courses";
     }
 }

@@ -90,12 +90,12 @@
         <!-- Shiro的核心安全接口,这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 身份认证失败，则跳转到登录页面的配置 -->
-        <property name="loginUrl" value="/user/login"/>
+        <property name="loginUrl" value="/user/toLogin"/>
         <!-- 登录成功后的页面 -->
         <property name="successUrl" value="/user/success"/>
         <!-- 权限认证失败，则跳转到指定页面 -->
         <!-- 登录后访问没有权限的页面后跳转的页面 -->
-        <property name="unauthorizedUrl"  value="/user/unauthorized"/>
+        <property name="unauthorizedUrl"  value="/user/toUD"/>
         <!-- Shiro连接约束配置,即过滤链的定义 -->
         <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
     </bean>

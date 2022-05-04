@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>学生管理</title>
 </head>
 <body>
-    修改密码
+    学生管理
 </body>
 </html>

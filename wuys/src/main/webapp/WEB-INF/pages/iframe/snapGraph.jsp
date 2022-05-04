@@ -2,15 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Insert title here</title>
+    <title>折线图</title>
     <script src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
     <script src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
 </head>
 <body>
-    <!-- 柱状图-->
+    <!-- 折线图-->
     <div class="layui-card" style="margin-left: 35px">
         <div class="layui-card-body">
-            <div id="EchartZhuZhuang" style="width: 350px; height: 220px;"></div>
+            <div id="EchartZheXian" style="width: 350px; height: 220px;"></div>
         </div>
     </div>
 </body>
@@ -29,44 +29,46 @@
             var layedit = layui.layedit;
             var upload = layui.upload;
 
-            var chartZhuZhuang = echarts.init(document
-                .getElementById('EchartZhuZhuang'));
+            var chartZheXian = echarts.init(document
+                .getElementById('EchartZheXian'));
             //指定图表配置项和数据
-            var optionchart = {
+            var optionchartZhe = {
                 // title : {
                 //     text : '数据分析'
                 // },
                 tooltip : {},
-                legend : {
-                    data : [ '数据量' ]
+                legend : { //顶部显示 与series中的数据类型的name一致
+                    data : [ '销量', '产量', '营业额', '单价' ]
                 },
                 xAxis : {
-                    data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周天' ]
+                    // type: 'category',
+                    // boundaryGap: false, //从起点开始
+                    data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ]
                 },
                 yAxis : {
                     type : 'value'
                 },
                 series : [ {
                     name : '销量',
-                    type : 'bar', //柱状
-                    data : [ 100, 200, 300, 400, 500, 600, 700 ],
-                    itemStyle : {
-                        normal : { //柱子颜色
-                            color : 'red'
-                        }
-                    },
+                    type : 'line', //线性
+                    data : [ 145, 230, 701, 734, 1090, 1130, 1120 ],
                 }, {
                     name : '产量',
-                    type : 'bar',
-                    data : [ 120, 210, 340, 430, 550, 680, 720 ],
-                    itemStyle : {
-                        normal : {
-                            color : 'blue'
-                        }
-                    }
+                    type : 'line', //线性
+                    data : [ 720, 832, 801, 834, 1190, 1230, 1220 ],
+                }, {
+                    smooth : true, //曲线 默认折线
+                    name : '营业额',
+                    type : 'line', //线性
+                    data : [ 820, 932, 901, 934, 1290, 1330, 1320 ],
+                }, {
+                    smooth : true, //曲线
+                    name : '单价',
+                    type : 'line', //线性
+                    data : [ 220, 332, 401, 534, 690, 730, 820 ],
                 } ]
             };
-            chartZhuZhuang.setOption(optionchart, true); // 柱状图
+            chartZheXian.setOption(optionchartZhe, true); // 折线图
 
         });
 </script>

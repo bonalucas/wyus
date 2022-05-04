@@ -27,15 +27,10 @@ jQuery(function($) {
 								// false, 'num', 'name', 'blank')
 		slides : [ // Slideshow Images
 		{
-			image : '/wyus/imgs/backgrounds/pic1.jpg'
+			image : '/wyus/imgs/backgrounds/pic01.jpg'
 		}, {
-			image : '/wyus/imgs/backgrounds/pic2.jpg'
-		}, {
-			image : '/wyus/imgs/backgrounds/pic3.jpg'
-		}, {
-			image : '/wyus/imgs/backgrounds/pic4.png'
-		} ]
-
+			image : '/wyus/imgs/backgrounds/pic02.jpg'
+		}]
 	});
 
 });

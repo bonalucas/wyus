@@ -17,7 +17,7 @@ public class FilterChainDefinitionMapBuilder {
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("/user/**", "anon");
-        map.put("/user/logout", "logout");
+        map.put("/user/doLogout", "logout");
         // 设置全部页面访问权限为user
         map.put("/main/**", "roles[user]");
         return map;

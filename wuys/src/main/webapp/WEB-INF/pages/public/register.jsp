@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>登录</title>
+    <title>注册</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/supersized.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized.3.2.7.min.js"></script>
@@ -107,7 +107,7 @@
         verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
     }
     $("#back").click(function (){
-       window.location.href="${pageContext.request.contextPath}/user/login";
+       window.location.href="${pageContext.request.contextPath}/user/toLogin";
     });
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
@@ -154,7 +154,7 @@
             layer.msg('请输入正确格式的验证码', {
                 offset: 't',
                 anim: 6,
-                area:['250px','50px']
+                area:['220px','50px']
             });
         }
     });

@@ -3,17 +3,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>carousel</title>
+    <title>轮播图</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
 </head>
 <body>
 
 <div class="layui-carousel" id="test1" lay-filter="test1">
     <div carousel-item=""  data-value="hover">
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic1.jpg"></div>
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic2.jpg"></div>
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic3.jpg"></div>
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic4.png"></div>
+        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic01.jpg"></div>
+        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic02.jpg"></div>
     </div>
 </div>
 <!-- 条目中可以是任意内容，如：<img src=""> -->

@@ -12,7 +12,7 @@ public class VerificationCodeImgController {
     @RequestMapping("/verificationcodeimg")
     public ModelAndView verificationcodeimg(){
         ModelAndView verificationcodeimg = new ModelAndView();
-        verificationcodeimg.setViewName("verificationcodeimg");
+        verificationcodeimg.setViewName("util/verificationcodeimg");
         return verificationcodeimg;
     }
 }

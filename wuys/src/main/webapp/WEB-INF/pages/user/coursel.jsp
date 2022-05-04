@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>个人选课</title>
 </head>
 <body>
-    专业管理
+    个人选课
 </body>
 </html>

@@ -7,7 +7,6 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized.3.2.7.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized-init.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jQuery.md5.js"></script>
-<%-- 登录界面样式 --%>
     <style>
         *{
             margin: 0 auto;
@@ -23,7 +22,6 @@
             border-radius: 10px;
             text-align: center;
         }
-
         #sp1{
             margin-top: 20px;
             font-size: 25px;
@@ -111,7 +109,7 @@
             verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
         }
         $("#register").click(function (){
-            window.location.href="${pageContext.request.contextPath}/user/register";
+            window.location.href="${pageContext.request.contextPath}/user/toRegister";
         });
         $("#currpwd").blur(function (){
             var pwd = ($.md5($("#currpwd").val()));
@@ -149,7 +147,7 @@
                 layer.msg('请输入正确格式的验证码', {
                     offset: 't',
                     anim: 6,
-                    area:['250px','50px']
+                    area:['220px','50px']
                 });
             }
         });
