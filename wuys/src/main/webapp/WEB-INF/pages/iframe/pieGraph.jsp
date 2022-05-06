@@ -8,10 +8,10 @@
 </head>
 <body>
     <!-- 饼状图 -->
-    <div class="layui-card" style="margin-left: 35px">
+    <div class="layui-card">
         <div class="layui-card-header">图表统计</div>
         <div class="layui-card-body">
-            <div id="EchartBingTu" style="width: 350px; height: 220px;"></div>
+            <div id="EchartBingTu" style="width: 100%; height: 180px;"></div>
         </div>
     </div>
 </body>

@@ -8,9 +8,9 @@
 </head>
 <body>
     <!-- 折线图-->
-    <div class="layui-card" style="margin-left: 35px">
+    <div class="layui-card">
         <div class="layui-card-body">
-            <div id="EchartZheXian" style="width: 350px; height: 220px;"></div>
+            <div id="EchartZheXian" style="width: 100%; height: 100%;"></div>
         </div>
     </div>
 </body>

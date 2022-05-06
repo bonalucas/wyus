@@ -129,17 +129,16 @@
     <div class="layui-body">
         <div style="padding: 15px">
 
-
-            <div class="layui-bg-gray" style="padding: 30px;">
+            <div class="layui-bg-gray" style="padding: 10px">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md8">
                         <div class="layui-card">
                             <div class="layui-card-body">
-                                <div class="layui-tab layui-tab-card layui-tab-brief" lay-allowclose="true" lay-filter="demo" style="width: 100%; height: 780px">
+                                <div class="layui-tab layui-tab-card layui-tab-brief" lay-allowclose="true" lay-filter="demo" style="width: 100%">
                                     <ul class="layui-tab-title">
                                         <li class="layui-this"><i class="layui-icon layui-icon-home" style="font-size: 14px; font-weight: bold; color: #009688;"></i>&nbsp;&nbsp;学校首页</li>
                                     </ul>
-                                    <div class="layui-tab-content" style="height: 630px;">
+                                    <div class="layui-tab-content" style="height: 690px">
                                         <div class="layui-tab-item layui-show">
                                             <iframe src="${pageContext.request.contextPath}/main/toCL" width="780px" height="350px"></iframe>
                                         </div>
@@ -151,9 +150,21 @@
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-body">
-                                <iframe style="border: 0; width: 400px; height: 260px" src="${pageContext.request.contextPath}/main/toSG"></iframe>
-                                <iframe style="border: 0; width: 400px; height: 260px" src="${pageContext.request.contextPath}/main/toPG"></iframe>
-                                <iframe style="border: 0; width: 400px; height: 260px" src="${pageContext.request.contextPath}/main/toCG"></iframe>
+                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/main/toSG"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/main/toPG"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/main/toCG"></iframe>
                             </div>
                         </div>
                     </div>
