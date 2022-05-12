@@ -3,6 +3,7 @@
 <head>
     <title>注册</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/supersized.css">
+    <link rel="icon" sizes="192x192" href="${pageContext.request.contextPath}/imgs/logo.png">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized.3.2.7.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/supersized-init.js"></script>

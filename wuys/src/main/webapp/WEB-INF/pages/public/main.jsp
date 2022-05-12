@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>首页</title>
+    <link rel="icon" sizes="192x192" href="${pageContext.request.contextPath}/imgs/logo.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 </head>
@@ -17,10 +18,9 @@
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                 <i class="layui-icon layui-icon-spread-left"></i>
             </li>
-
-            <li class="layui-nav-item layui-hide-xs">
+            <li>
                 <a href="https://www.wyu.edu.cn/" target="_blank">
-                    <img src="${pageContext.request.contextPath}/imgs/logo.jpg" style="width: 60px; height: 59px" alt="logo">
+                    <img src="${pageContext.request.contextPath}/imgs/logo.png" style="width: 80px; height: 59px;" alt="logo">
                 </a>
             </li>
         </ul>
@@ -140,7 +140,7 @@
                                     </ul>
                                     <div class="layui-tab-content" style="height: 690px">
                                         <div class="layui-tab-item layui-show">
-                                            <iframe src="${pageContext.request.contextPath}/main/toCL" width="780px" height="350px"></iframe>
+                                            <iframe src="${pageContext.request.contextPath}/main/toCL" width="800px" height="350px"></iframe>
                                         </div>
                                     </div>
                                 </div>

@@ -29,7 +29,7 @@ jQuery(function($) {
 		{
 			image : '/wyus/imgs/backgrounds/pic01.jpg'
 		}, {
-			image : '/wyus/imgs/backgrounds/pic02.jpg'
+			image : '/wyus/imgs/backgrounds/pic03.jpg'
 		}]
 	});
 
