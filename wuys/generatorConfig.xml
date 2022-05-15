@@ -43,10 +43,10 @@
 
 <!--&lt;!&ndash;        指定哪个表的生成策略，生成对应的表&ndash;&gt;-->
 <!--&lt;!&ndash;        <table tableName="indent" domainObjectName="Order"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        <table tableName="activity" />&ndash;&gt;-->
-<!--&lt;!&ndash;        <table tableName="address" />&ndash;&gt;-->
-<!--&lt;!&ndash;        <table tableName="admin" />&ndash;&gt;-->
-<!--&lt;!&ndash;        <table tableName="chat" />&ndash;&gt;-->
+<!--        <table tableName="achievement" />-->
+<!--        <table tableName="course" />-->
+<!--        <table tableName="major" />-->
+<!--        <table tableName="schedule" />-->
 <!--&lt;!&ndash;        <table tableName="comment" />&ndash;&gt;-->
 <!--        <table tableName="user"/>-->
 <!--    </context>-->

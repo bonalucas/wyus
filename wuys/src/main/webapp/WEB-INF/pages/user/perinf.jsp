@@ -13,54 +13,48 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学号</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.currUser.userid}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
+        <label class="layui-form-label">用户名</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.currUser.username}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.currUser.sex == "0" ? "女" : "男"}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">学号</label>
+        <label class="layui-form-label">创建时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">生日</label>
-        <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.createtime}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">专业</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.currMajor.majorname}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">总学分</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.currUser.totalcredits}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" value="" disabled="disabled" autocomplete="off" class="layui-input">
+            <input type="text" name="username" lay-verify="required" value="${sessionScope.currUser.remarks}" disabled="disabled" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">照片</label>
-        <img src="" width="100px" height="100px" style="margin-left: 20px">
+        <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" width="100px" height="100px" style="margin-left: 20px">
     </div>
 </form>
 </div>

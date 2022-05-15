@@ -26,12 +26,12 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                <a href="javascript:;">
+                <a href="javascript:">
                     <img src="${pageContext.request.contextPath}/imgs/head.jpg" class="layui-nav-img">
-                    用户
+                    ${sessionScope.currUser.username}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">个人信息</a></dd>
+                    <dd><a href="${pageContext.request.contextPath}/main/toPerinf">个人信息</a></dd>
                     <dd><a href="">设置</a></dd>
                     <dd><a href="${pageContext.request.contextPath}/">注销</a></dd>
                 </dl>
@@ -50,16 +50,16 @@
                 <a href="javascript:;" style="text-align: center">
                     <img src="${pageContext.request.contextPath}/imgs/head.jpg" class="layui-nav-img" style="width:110px; height: 110px">
                     <p style="color: #FFFFFF">
-                        欢迎，用户
+                        欢迎，${sessionScope.currUser.username}
                     </p>
                 </a>
             </div>
             <hr>
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">学生选课</a>
+                    <a class="" href="javascript:">学生选课</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toPerinf"
                                data-id="perinf"
                                data-title="<i class='layui-icon layui-icon-username'
@@ -67,7 +67,7 @@
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-username" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人信息</a></dd>
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toCourses"
                                data-id="courses"
                                data-title="<i class='layui-icon layui-icon-read'
@@ -75,7 +75,7 @@
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-read" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;所有课程</a></dd>
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toCoursel"
                                data-id="coursel"
                                data-title="<i class='layui-icon layui-icon-edit'
@@ -83,7 +83,7 @@
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-edit" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人选课</a></dd>
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toUpkwd"
                                data-id="upkwd"
                                data-title="<i class='layui-icon layui-icon-key'
@@ -94,9 +94,9 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">管理员选项</a>
+                    <a href="javascript:">管理员选项</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toStuman"
                                data-id="stuman"
                                data-title="<i class='layui-icon layui-icon-user'
@@ -104,7 +104,7 @@
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-user" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;学生管理</a></dd>
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toCourman"
                                data-id="courman"
                                data-title="<i class='layui-icon layui-icon-app'
@@ -112,7 +112,7 @@
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-app" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;课程管理</a></dd>
-                        <dd><a href="javascript:;"
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/main/toProman"
                                data-id="proman"
                                data-title="<i class='layui-icon layui-icon-form'

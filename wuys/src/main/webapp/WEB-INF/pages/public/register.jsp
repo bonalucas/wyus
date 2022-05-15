@@ -97,7 +97,7 @@
                 </svg></td>
                 <td>
                     <input type="text" style="width: 120px" class="txt" name="code" id="mycode" placeholder="请输入验证码">
-                    <img src="${pageContext.request.contextPath}/verificationcodeimg" id="code" onclick="reloadcode()" alt="验证码" style="position:absolute; right: 130px; width: 80px;height: 33px; border: 1px rgba(0,0,0,.5) solid">
+                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/verificationcodeimg" id="code" onclick="reloadcode()" alt="验证码" style="position:absolute; right: 130px; width: 80px;height: 33px; border: 1px rgba(0,0,0,.5) solid"></a>
                     <a href="javascript:reloadcodeByA();" style="position: absolute; right: 40px; top: 200px; text-decoration: none" id="next">
                         <span id="sp2">看不清，换一张</span>
                     </a>
@@ -119,7 +119,7 @@
         verify.setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
     }
     function reloadcodeByA() {
-        var verify = $("#next").prev();
+        var verify = $("#next").prev().children();
         verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
     }
     $("#back").click(function (){

@@ -22,12 +22,16 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         // 1. 从PrincipalCollection中来获取登录用户的信息
-//        Object principal = principals.getPrimaryPrincipal();
-//        List<User> user = userService.selectUser((String) principal);
+        Object principal = principals.getPrimaryPrincipal();
+        List<User> user = userService.selectUser((String) principal);
         // 2. 利用登录的用户的信息来获取当前用户的角色或权限（查询数据库）
         Set<String> roles = new HashSet<>();
-        roles.add("admin");
-        roles.add("user");
+        if (user.get(0).getRole() == 1) {
+            roles.add("user");
+            roles.add("admin");
+        }else{
+            roles.add("user");
+        }
         // 3. 创建SimpleAuthenticationInfo对象，并设置其reles属性
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roles);
@@ -35,7 +39,7 @@ public class ShiroRealm extends AuthorizingRealm {
         return info;
     }
 
-        // 登录会被调用的方法
+    // 登录会被调用的方法
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken)token;

@@ -2,9 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tbabs.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.tbabs.pojo.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="userId" jdbcType="INTEGER" property="userid" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="creationTime" jdbcType="DATE" property="creationtime" />
+    <result column="majorId" jdbcType="INTEGER" property="majorid" />
+    <result column="totalCredits" jdbcType="INTEGER" property="totalcredits" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password
+    userId, username, password, sex, role, creationTime, majorId, totalCredits, remarks, 
+    picture
   </sql>
   <select id="selectByExample" parameterType="com.tbabs.pojo.UserExample" resultMap="BaseResultMap">
     select
@@ -85,11 +93,11 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
-    where id = #{id,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.tbabs.pojo.UserExample">
     delete from user
@@ -98,16 +106,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tbabs.pojo.User">
-    insert into user (id, username, password
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+    insert into user (userId, username, password, 
+      sex, role, creationTime, 
+      majorId, totalCredits, remarks, 
+      picture)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{role,jdbcType=INTEGER}, #{creationtime,jdbcType=DATE}, 
+      #{majorid,jdbcType=INTEGER}, #{totalcredits,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tbabs.pojo.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="userid != null">
+        userId,
       </if>
       <if test="username != null">
         username,
@@ -115,16 +127,58 @@
       <if test="password != null">
         password,
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="creationtime != null">
+        creationTime,
+      </if>
+      <if test="majorid != null">
+        majorId,
+      </if>
+      <if test="totalcredits != null">
+        totalCredits,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null">
+        #{creationtime,jdbcType=DATE},
+      </if>
+      <if test="majorid != null">
+        #{majorid,jdbcType=INTEGER},
+      </if>
+      <if test="totalcredits != null">
+        #{totalcredits,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -137,14 +191,35 @@
   <update id="updateByExampleSelective" parameterType="map">
     update user
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
       </if>
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.role != null">
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationtime != null">
+        creationTime = #{record.creationtime,jdbcType=DATE},
+      </if>
+      <if test="record.majorid != null">
+        majorId = #{record.majorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalcredits != null">
+        totalCredits = #{record.totalcredits,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -153,9 +228,16 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update user
-    set id = #{record.id,jdbcType=INTEGER},
+    set userId = #{record.userid,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      role = #{record.role,jdbcType=INTEGER},
+      creationTime = #{record.creationtime,jdbcType=DATE},
+      majorId = #{record.majorid,jdbcType=INTEGER},
+      totalCredits = #{record.totalcredits,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +251,41 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="creationtime != null">
+        creationTime = #{creationtime,jdbcType=DATE},
+      </if>
+      <if test="majorid != null">
+        majorId = #{majorid,jdbcType=INTEGER},
+      </if>
+      <if test="totalcredits != null">
+        totalCredits = #{totalcredits,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where userId = #{userid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tbabs.pojo.User">
     update user
     set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+      password = #{password,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      role = #{role,jdbcType=INTEGER},
+      creationTime = #{creationtime,jdbcType=DATE},
+      majorId = #{majorid,jdbcType=INTEGER},
+      totalCredits = #{totalcredits,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>

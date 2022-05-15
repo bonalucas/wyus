@@ -1,6 +1,8 @@
 package com.tbabs.controller;
 
+import com.tbabs.pojo.Major;
 import com.tbabs.pojo.User;
+import com.tbabs.service.MajorService;
 import com.tbabs.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,6 +26,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MajorService majorService;
 
     @RequestMapping("/toLogin")
     public String toLogin(){
@@ -40,6 +46,8 @@ public class UserController {
 
     @RequestMapping("/doLogout")
     public String doLogout(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         return "redirect:/user/toLogin";
     }
 
@@ -60,6 +68,7 @@ public class UserController {
             return "public/login";
         }
         Subject subject = SecurityUtils.getSubject();
+        // 每次登录操作之前都会进行清空之前登录缓存
         subject.logout();
         if (!subject.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -73,6 +82,13 @@ public class UserController {
                 return "public/login";
             }
         }
+        // session处理信息存储
+        List<User> userList = userService.selectUser(username);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        request.getSession().setAttribute("createtime",simpleDateFormat.format(userList.get(0).getCreationtime()));
+        request.getSession().setAttribute("currUser",userList.get(0));
+        Major major = majorService.selectByMajorId(userList.get(0).getMajorid());
+        request.getSession().setAttribute("currMajor", major);
         return "redirect:/user/success";
     }
 
@@ -86,6 +102,11 @@ public class UserController {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setCreationtime(new Date());
+        user.setSex("0");
+        user.setMajorid(1);
+        user.setRole(0);
+        user.setTotalcredits(0);
         Integer res = userService.saveUser(user);
         if (res <= 0) {
             request.setAttribute("errorMessage", "注册失败");

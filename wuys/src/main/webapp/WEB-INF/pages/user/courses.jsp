@@ -34,31 +34,33 @@
 
         table.render({
             elem: '#test'
-            ,url:'/test/table/demo1.json'
-            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+            ,url:'${pageContext.request.contextPath}/course/showCourses'
+            ,toolbar: '#toolbarDemo'
+            ,defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示'
                 ,layEvent: 'LAYTABLE_TIPS'
                 ,icon: 'layui-icon-tips'
             }]
-            ,title: '用户数据表'
+            ,height: 690
+            ,parseData:function(res) {
+                return {
+                    "code" : 0,
+                    "msg" : "",
+                    "count" : res.total,
+                    "data": res.list
+                }
+            }
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'username', title:'用户名', width:120, edit: 'text'}
-                ,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
-                        return '<em>'+ res.email +'</em>'
-                    }}
-                ,{field:'sex', title:'性别', width:80, edit: 'text', sort: true}
-                ,{field:'city', title:'城市', width:100}
-                ,{field:'sign', title:'签名'}
-                ,{field:'experience', title:'积分', width:80, sort: true}
-                ,{field:'ip', title:'IP', width:120}
-                ,{field:'logins', title:'登入次数', width:100, sort: true}
-                ,{field:'joinTime', title:'加入时间', width:120}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                ,{field:'courid', title:'课程编号', width:120, fixed: 'left', unresize: true, sort: true}
+                ,{field:'courname', title:'课程名字', width:150, sort: true}
+                ,{field:'semester', title:'所属学期', width:120, sort: true}
+                ,{field:'period', title:'学时', width:100, sort: true}
+                ,{field:'credit', title:'学分', width:90,  sort: true}
+                ,{fixed: 'right', title:'操作', width:150, toolbar: '#barDemo'}
             ]]
             ,page: true
+            ,limits:[10,20]
         });
 
         //头工具栏事件
@@ -81,7 +83,7 @@
                 case 'LAYTABLE_TIPS':
                     layer.alert('这是工具栏右侧自定义的一个图标按钮');
                     break;
-            };
+            }
         });
 
         //监听行工具事件
@@ -107,6 +109,5 @@
         });
     });
 </script>
-
 </body>
 </html>
