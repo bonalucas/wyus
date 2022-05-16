@@ -10,6 +10,14 @@
 </head>
 <body>
 
+<div class="demoTable">
+    搜索课程名字：
+    <div class="layui-inline">
+        <input class="layui-input" name="courname" id="courname" autocomplete="off" placeholder="请输入课程名称">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
@@ -36,12 +44,16 @@
             elem: '#test'
             ,url:'${pageContext.request.contextPath}/course/showCourses'
             ,toolbar: '#toolbarDemo'
+            ,id: 'getCourse'
             ,defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示'
                 ,layEvent: 'LAYTABLE_TIPS'
                 ,icon: 'layui-icon-tips'
             }]
-            ,height: 690
+            ,where: {
+                courname: ''
+            }
+            ,height: 650
             ,parseData:function(res) {
                 return {
                     "code" : 0,
@@ -61,6 +73,26 @@
             ]]
             ,page: true
             ,limits:[10,20]
+        });
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#courname');
+                //执行重载
+                table.reload('getCourse', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        courname: demoReload.val()
+                    }
+                });
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
 
         //头工具栏事件

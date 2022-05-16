@@ -23,9 +23,10 @@ public class CourseController {
 
     @ResponseBody
     @RequestMapping(value = "/showCourses", produces="text/html;charset=UTF-8;")
-    public String showCourses(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit) throws JsonProcessingException {
+    public String showCourses(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
+                              @RequestParam("courname") String courname) throws JsonProcessingException {
         CourseExample courseExample = new CourseExample();
-        courseExample.or();
+        courseExample.createCriteria().andCournameLike("%" + courname + "%");
 
         // 一页显示10条数据
         PageHelper.startPage(page,limit);

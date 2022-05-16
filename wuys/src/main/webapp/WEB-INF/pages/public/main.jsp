@@ -31,8 +31,15 @@
                     ${sessionScope.currUser.username}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="${pageContext.request.contextPath}/main/toPerinf" target="_blank">个人信息</a></dd>
-                    <dd><a href="">设置</a></dd>
+                    <dd><a href="javascript:"
+                           data-url="${pageContext.request.contextPath}/main/toPerinf"
+                           data-id="perinf"
+                           data-title="<i class='layui-icon layui-icon-username'
+                            style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;个人信息"
+                           class="site-demo-active"
+                           data-type="tabAdd"
+                    >个人信息</a></dd>
+                    <dd><a href="javascript:void(0);">设置</a></dd>
                     <dd><a href="${pageContext.request.contextPath}/">注销</a></dd>
                 </dl>
             </li>
