@@ -9,4 +9,8 @@ public interface UserService {
     Integer saveUser(User user);
     // 查询用户信息
     List<User> selectUser(String username);
+    // 根据用户编号查询用户信息
+    User selectUserById(Integer userId);
+    // 修改图片路径
+    Integer updatePicturePath(User user);
 }

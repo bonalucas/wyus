@@ -27,17 +27,17 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:">
-                    <img src="${pageContext.request.contextPath}/imgs/head.jpg" class="layui-nav-img">
+                    <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img">
                     ${sessionScope.currUser.username}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="${pageContext.request.contextPath}/main/toPerinf">个人信息</a></dd>
+                    <dd><a href="${pageContext.request.contextPath}/main/toPerinf" target="_blank">个人信息</a></dd>
                     <dd><a href="">设置</a></dd>
                     <dd><a href="${pageContext.request.contextPath}/">注销</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-                <a href="javascript:;">
+                <a href="javascript:">
                     <i class="layui-icon layui-icon-more-vertical"></i>
                 </a>
             </li>
@@ -47,8 +47,8 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <div style="text-align: center;padding-bottom: 15px;padding-top: 15px;padding-right: 25px">
-                <a href="javascript:;" style="text-align: center">
-                    <img src="${pageContext.request.contextPath}/imgs/head.jpg" class="layui-nav-img" style="width:110px; height: 110px">
+                <a href="javascript:" style="text-align: center">
+                    <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img" style="width:110px; height: 110px">
                     <p style="color: #FFFFFF">
                         欢迎，${sessionScope.currUser.username}
                     </p>

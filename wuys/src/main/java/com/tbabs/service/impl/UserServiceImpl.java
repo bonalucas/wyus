@@ -26,4 +26,14 @@ public class UserServiceImpl implements UserService {
         example.createCriteria().andUsernameEqualTo(username);
         return userMapper.selectByExample(example);
     }
+
+    @Override
+    public Integer updatePicturePath(User user) {
+        return userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public User selectUserById(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }

@@ -48,6 +48,9 @@ public class ShiroRealm extends AuthorizingRealm {
         }
         String username = usernamePasswordToken.getUsername();
         List<User> userList = userService.selectUser(username);
+        if (userList.size() < 1) {
+            throw new UnknownAccountException("账号不存在");
+        }
         // 以下信息是从数据库中获取的
         // 1） principle：认证的实体信息，可以是username，也可以是数据表对应的用户的实体类对象
         // 2）credentials：密码

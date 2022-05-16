@@ -4,6 +4,7 @@ import com.tbabs.pojo.Major;
 import com.tbabs.pojo.User;
 import com.tbabs.service.MajorService;
 import com.tbabs.service.UserService;
+import com.tbabs.utils.FileNameUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -14,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -126,5 +129,37 @@ public class UserController {
         }else{
             return "当前用户名可用";
         }
+    }
+
+    @RequestMapping("/upload")
+    @ResponseBody
+    public Map<String, Object> upload(MultipartFile file, HttpServletRequest request) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
+        String filePath = "C:\\Users\\30141\\IdeaProjects\\hw\\wuys\\src\\main\\webapp\\imgs\\upload\\";
+        String saveFileName = FileNameUtil.getUUIDFileName() + FileNameUtil.getFileType(Objects.requireNonNull(file.getOriginalFilename()));
+        String uploadImgPath = filePath + saveFileName;
+        // 修改数据库中的图片路径
+        User user = (User) request.getSession().getAttribute("currUser");
+        user.setPicture("upload/" + saveFileName);
+        Integer res = userService.updatePicturePath(user);
+        if (res < 0) {
+            throw new RuntimeException("数据库图片更新失败");
+        }
+        file.transferTo(new File(uploadImgPath));
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("data", data);
+        String basePath = request.getScheme() + "://" +request.getServerName() + ":" +request.getServerPort() + request.getContextPath() +"/";
+        data.put("src", basePath + "imgs/upload/" + saveFileName);
+        return map;
+    }
+
+    @RequestMapping("/updateSession")
+    public String updateSession(Integer userId, HttpServletRequest request){
+        User user = userService.selectUserById(userId);
+        request.getSession().removeAttribute("currUser");
+        request.getSession().setAttribute("currUser", user);
+        return "redirect:/user/success";
     }
 }
