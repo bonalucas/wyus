@@ -16,10 +16,14 @@ public class FilterChainDefinitionMapBuilder {
     public LinkedHashMap<String, String> buildFilterChainDefinitionMap() {
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("/user/**", "anon");
-        map.put("/user/doLogout", "logout");
-        // 设置全部页面访问权限为user
-        map.put("/main/**", "roles[admin]");
+        // 登出
+        map.put("/backstage/doLogout", "logout");
+        // 只要是管理员操作的页面全部需要权限认证
+        map.put("/backstage/man/**", "roles[admin]");
+        // 只要是前台的请求全部默认不需要认证
+        map.put("/reception/**", "anon");
+        // 只要是后台的请求全部需要认证
+        map.put("/backstage/**", "authc");
         return map;
     }
 }

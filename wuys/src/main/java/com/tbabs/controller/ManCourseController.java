@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class CourseController {
+public class ManCourseController {
     @Autowired
     private CourseService courseService;
 
     @ResponseBody
-    @RequestMapping(value = "/backstage/course/showCourses", produces="text/html;charset=UTF-8;")
-    public String showCourses(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
-                              @RequestParam("courname") String courname) throws JsonProcessingException {
+    @RequestMapping(value = "/backstage/man/showManCourses", produces="text/html;charset=UTF-8;")
+    public String showManCourses(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
+                                 @RequestParam("courname") String courname) throws JsonProcessingException {
         CourseExample courseExample = new CourseExample();
         courseExample.createCriteria().andCournameLike("%" + courname + "%");
 

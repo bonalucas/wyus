@@ -74,7 +74,7 @@
 <body>
     <div id="div1">
         <div id="sp1">登录</div>
-        <form action="${pageContext.request.contextPath}/user/doLogin" method="post">
+        <form action="${pageContext.request.contextPath}/reception/user/doLogin" method="post">
             <input type="hidden" name="password" id="pwd">
             <table>
                 <tr>
@@ -99,7 +99,7 @@
                     </svg></td>
                     <td>
                         <input type="text" style="width: 120px" class="txt" name="code" id="mycode" placeholder="请输入验证码">
-                        <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/verificationcodeimg" id="code" onclick="reloadcode()" alt="验证码" style="position:absolute; right: 130px; width: 80px;height: 33px; border: 1px rgba(0,0,0,.5) solid"></a>
+                        <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/reception/verificationcodeimg" id="code" onclick="reloadcode()" alt="验证码" style="position:absolute; right: 130px; width: 80px;height: 33px; border: 1px rgba(0,0,0,.5) solid"></a>
                         <a href="javascript:reloadcodeByA();" style="position: absolute; right: 40px; top: 200px; text-decoration: none" id="next">
                             <span id="sp2">看不清，换一张</span>
                         </a>
@@ -118,14 +118,14 @@
     <script type="text/javascript">
         function reloadcode() {
             var verify = document.getElementById('code');
-            verify.setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
+            verify.setAttribute("src", "${pageContext.request.contextPath}/reception/verificationcodeimg?it=" + Math.random());
         }
         function reloadcodeByA() {
             var verify = $("#next").prev().children();
-            verify[0].setAttribute("src", "${pageContext.request.contextPath}/verificationcodeimg?it=" + Math.random());
+            verify[0].setAttribute("src", "${pageContext.request.contextPath}/reception/verificationcodeimg?it=" + Math.random());
         }
         $("#register").click(function (){
-            window.location.href="${pageContext.request.contextPath}/user/toRegister";
+            window.location.href="${pageContext.request.contextPath}/reception/toRegister";
         });
         $("#currpwd").blur(function (){
             var pwd = ($.md5($("#currpwd").val()));

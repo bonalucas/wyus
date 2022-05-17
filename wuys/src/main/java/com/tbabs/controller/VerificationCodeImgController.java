@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * 验证码
  */
+@RequestMapping("/reception")
 @Controller
 public class VerificationCodeImgController {
     @RequestMapping("/verificationcodeimg")

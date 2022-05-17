@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -32,34 +31,7 @@ public class UserController {
     @Autowired
     private MajorService majorService;
 
-    @RequestMapping("/toLogin")
-    public String toLogin(){
-        return "public/login";
-    }
-
-    @RequestMapping("/toRegister")
-    public String toRegister() {
-        return "public/register";
-    }
-
-    @RequestMapping("/success")
-    public String toMain(){
-        return "public/main";
-    }
-
-    @RequestMapping("/doLogout")
-    public String doLogout(){
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        return "redirect:/user/toLogin";
-    }
-
-    @RequestMapping("/toUD")
-    public String toUD(){
-        return "error/403";
-    }
-
-    @RequestMapping("/doLogin")
+    @RequestMapping("/reception/user/doLogin")
     public String doLogin(String username, String password, HttpServletRequest request, @RequestParam("code") String vercode) {
         String certCode = (String) request.getSession().getAttribute("certCode");
         if ("".equals(username) || "".equals(password)) {
@@ -92,14 +64,23 @@ public class UserController {
         request.getSession().setAttribute("currUser",userList.get(0));
         Major major = majorService.selectByMajorId(userList.get(0).getMajorid());
         request.getSession().setAttribute("currMajor", major);
-        return "redirect:/user/success";
+        return "redirect:/backstage/success";
     }
 
-    @RequestMapping("/doRegister")
+    @RequestMapping("/reception/user/doRegister")
     public String doRegister(String username, String password, HttpServletRequest request, @RequestParam("code")String vercode) {
         String certCode = (String) request.getSession().getAttribute("certCode");
+        if ("".equals(username) || "".equals(password)) {
+            request.setAttribute("errorMessage", "账号或密码为空");
+            return "public/register";
+        }
         if (!vercode.equals(certCode)) {
             request.setAttribute("errorMessage", "验证码错误");
+            return "public/register";
+        }
+        List<User> userList = userService.selectUser(username);
+        if (userList.size() > 0) {
+            request.setAttribute("errorMessage", "用户名重复");
             return "public/register";
         }
         User user = new User();
@@ -119,7 +100,7 @@ public class UserController {
         return "public/login";
     }
 
-    @RequestMapping(value = "/checkUser", produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/reception/user/checkUser", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String checkUser(String username){
         List<User> userList = userService.selectUser(username);
@@ -131,7 +112,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/upload")
+    @RequestMapping("/backstage/user/upload")
     @ResponseBody
     public Map<String, Object> upload(MultipartFile file, HttpServletRequest request) throws IOException {
         Map<String, Object> map = new HashMap<>();
@@ -155,11 +136,11 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping("/updateSession")
+    @RequestMapping("/backstage/user/updateSession")
     public String updateSession(Integer userId, HttpServletRequest request){
         User user = userService.selectUserById(userId);
         request.getSession().removeAttribute("currUser");
         request.getSession().setAttribute("currUser", user);
-        return "redirect:/user/success";
+        return "redirect:/backstage/success";
     }
 }

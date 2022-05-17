@@ -27,7 +27,6 @@ public class ShiroRealm extends AuthorizingRealm {
         // 2. 利用登录的用户的信息来获取当前用户的角色或权限（查询数据库）
         Set<String> roles = new HashSet<>();
         if (user.get(0).getRole() == 1) {
-            roles.add("user");
             roles.add("admin");
         }else{
             roles.add("user");

@@ -42,7 +42,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'${pageContext.request.contextPath}/course/showCourses'
+            ,url:'${pageContext.request.contextPath}/backstage/course/showCourses'
             ,toolbar: '#toolbarDemo'
             ,id: 'getCourse'
             ,defaultToolbar: ['filter', 'exports', 'print', {

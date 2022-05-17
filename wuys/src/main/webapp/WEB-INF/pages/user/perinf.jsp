@@ -95,7 +95,7 @@
 
         var uploadInst = upload.render({
             elem: '#test1'
-            , url: '${pageContext.request.contextPath}/user/upload'
+            , url: '${pageContext.request.contextPath}/backstage/user/upload'
             , accept:'images'
             , acceptMime: 'image/*'
             , before: function (obj) {
@@ -132,7 +132,7 @@
         layer.msg('更新图片中', {icon: 16, time: 10000},function (){
             if (CheckImgExists(res.data.src)) {
                 $('#demoText').html(''); //置空上传失败的状态
-                window.parent.location.href = "${pageContext.request.contextPath}/user/updateSession?userId=" + ${sessionScope.currUser.userid}
+                window.parent.location.href = "${pageContext.request.contextPath}/backstage/user/updateSession?userId=" + ${sessionScope.currUser.userid}
             }else{
                 loading(res)
             }

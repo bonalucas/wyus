@@ -12,7 +12,7 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo layui-hide-xs layui-bg-black">
-            <a href="${pageContext.request.contextPath}/user/success" style="color: #FFFFFF">五邑大学选课系统</a>
+            <a href="${pageContext.request.contextPath}/backstage/success" style="color: #FFFFFF">五邑大学选课系统</a>
         </div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
@@ -32,7 +32,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:"
-                           data-url="${pageContext.request.contextPath}/main/toPerinf"
+                           data-url="${pageContext.request.contextPath}/backstage/toPerinf"
                            data-id="perinf"
                            data-title="<i class='layui-icon layui-icon-username'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;个人信息"
@@ -40,7 +40,7 @@
                            data-type="tabAdd"
                     >个人信息</a></dd>
                     <dd><a href="javascript:void(0);">设置</a></dd>
-                    <dd><a href="${pageContext.request.contextPath}/">注销</a></dd>
+                    <dd><a href="${pageContext.request.contextPath}/backstage/doLogout">注销</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
@@ -67,7 +67,7 @@
                     <a class="" href="javascript:">学生选课</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toPerinf"
+                               data-url="${pageContext.request.contextPath}/backstage/toPerinf"
                                data-id="perinf"
                                data-title="<i class='layui-icon layui-icon-username'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;个人信息"
@@ -75,7 +75,7 @@
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-username" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人信息</a></dd>
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toCourses"
+                               data-url="${pageContext.request.contextPath}/backstage/toCourses"
                                data-id="courses"
                                data-title="<i class='layui-icon layui-icon-read'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;所有课程"
@@ -83,7 +83,7 @@
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-read" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;所有课程</a></dd>
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toCoursel"
+                               data-url="${pageContext.request.contextPath}/backstage/toCoursel"
                                data-id="coursel"
                                data-title="<i class='layui-icon layui-icon-edit'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;个人选课"
@@ -91,7 +91,7 @@
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-edit" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人选课</a></dd>
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toUpkwd"
+                               data-url="${pageContext.request.contextPath}/backstage/toUpkwd"
                                data-id="upkwd"
                                data-title="<i class='layui-icon layui-icon-key'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;修改密码"
@@ -104,7 +104,7 @@
                     <a href="javascript:">管理员选项</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toStuman"
+                               data-url="${pageContext.request.contextPath}/backstage/man/toStuman"
                                data-id="stuman"
                                data-title="<i class='layui-icon layui-icon-user'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;学生管理"
@@ -112,7 +112,7 @@
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-user" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;学生管理</a></dd>
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toCourman"
+                               data-url="${pageContext.request.contextPath}/backstage/man/toCourman"
                                data-id="courman"
                                data-title="<i class='layui-icon layui-icon-app'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;课程管理"
@@ -120,7 +120,7 @@
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-app" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;课程管理</a></dd>
                         <dd><a href="javascript:"
-                               data-url="${pageContext.request.contextPath}/main/toProman"
+                               data-url="${pageContext.request.contextPath}/backstage/man/toProman"
                                data-id="proman"
                                data-title="<i class='layui-icon layui-icon-form'
                             style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;专业管理"
@@ -147,7 +147,7 @@
                                     </ul>
                                     <div class="layui-tab-content" style="height: 690px">
                                         <div class="layui-tab-item layui-show">
-                                            <iframe src="${pageContext.request.contextPath}/main/toCL" width="800px" height="350px"></iframe>
+                                            <iframe src="${pageContext.request.contextPath}/backstage/toCL" width="800px" height="350px"></iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -157,21 +157,21 @@
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-body">
-                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/main/toSG"></iframe>
+                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/backstage/toSG"></iframe>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-body">
-                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/main/toPG"></iframe>
+                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/backstage/toPG"></iframe>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-body">
-                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/main/toCG"></iframe>
+                                <iframe style="width: 100%; height: 220px" src="${pageContext.request.contextPath}/backstage/toCG"></iframe>
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                 layer.open({
                     title:'学校简介'
                     ,type: 1
-                    ,content: '<iframe src="${pageContext.request.contextPath}/main/toSP" width="260px" height="100%"></iframe>'
+                    ,content: '<iframe src="${pageContext.request.contextPath}/backstage/toSP" width="260px" height="100%"></iframe>'
                     ,area: ['260px', '100%']
                     ,offset: 'rt' //右上角
                     ,anim: 5
