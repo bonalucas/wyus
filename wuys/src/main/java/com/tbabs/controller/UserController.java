@@ -1,7 +1,14 @@
 package com.tbabs.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.tbabs.pojo.Course;
+import com.tbabs.pojo.CourseExample;
 import com.tbabs.pojo.Major;
 import com.tbabs.pojo.User;
+import com.tbabs.service.CourseService;
 import com.tbabs.service.MajorService;
 import com.tbabs.service.UserService;
 import com.tbabs.utils.FileNameUtil;
@@ -30,6 +37,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private MajorService majorService;
+    @Autowired
+    private CourseService courseService;
 
     @RequestMapping("/reception/user/doLogin")
     public String doLogin(String username, String password, HttpServletRequest request, @RequestParam("code") String vercode) {
@@ -142,5 +151,25 @@ public class UserController {
         request.getSession().removeAttribute("currUser");
         request.getSession().setAttribute("currUser", user);
         return "redirect:/backstage/success";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/backstage/course/showCourses", produces="text/html;charset=UTF-8;")
+    public String showCourses(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
+                              @RequestParam("courname") String courname) throws JsonProcessingException {
+        CourseExample courseExample = new CourseExample();
+        courseExample.createCriteria().andCournameLike("%" + courname + "%");
+
+        // 一页显示10条数据
+        PageHelper.startPage(page,limit);
+
+        List<Course> courseList = courseService.selectCourses(courseExample);
+
+        PageInfo<Course> CourseInfo = new PageInfo<>(courseList, 5);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // CourseInfo转换为json字符串
+        return mapper.writeValueAsString(CourseInfo);
     }
 }

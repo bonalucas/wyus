@@ -23,6 +23,8 @@ public class User {
 
     private String picture;
 
+    private String majorname;
+
     public Integer getUserid() {
         return userid;
     }
@@ -101,5 +103,13 @@ public class User {
 
     public void setPicture(String picture) {
         this.picture = picture == null ? null : picture.trim();
+    }
+
+    public String getMajorname() {
+        return majorname;
+    }
+
+    public void setMajorname(String majorname) {
+        this.majorname = majorname;
     }
 }

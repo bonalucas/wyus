@@ -288,4 +288,27 @@
       picture = #{picture,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>
+
+  <!-- 多表查询 -->
+  <resultMap id="UMResultMap" type="com.tbabs.pojo.User">
+    <id column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="majorName" jdbcType="VARCHAR" property="majorname" />
+    <result column="totalCredits" jdbcType="INTEGER" property="totalcredits" />
+  </resultMap>
+  <sql id="UM_Column_List">
+    userId, username, sex, majorName, totalCredits
+  </sql>
+  <select id="selectByUsername" parameterType="com.tbabs.pojo.User" resultMap="UMResultMap">
+    select
+    <include refid="UM_Column_List" />
+    from user, major
+    <where>
+        user.majorId = major.majorId and
+        role = 0 and
+        username LIKE "%"#{username}"%"
+    </where>
+    order by userId
+  </select>
 </mapper>
