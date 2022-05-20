@@ -66,7 +66,7 @@
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'userid', title:'学生编号', width:120, fixed: 'left', unresize: true, sort: true}
                 ,{field:'username', title:'学生名字', width:120, sort: true}
-                ,{field:'sex', title:'性别', width:80, sort: true}
+                ,{field:'sex', title:'性别', width:80, sort: true, templet: '<div>{{d.sex == 1 ? "男" : "女"}}</div>'}
                 ,{field:'majorname', title:'专业名字', width:160, sort: true}
                 ,{field:'totalcredits', title:'总学分', width:100, sort: true}
                 ,{fixed: 'right', title:'操作', width:150, toolbar: '#barDemo'}

@@ -96,7 +96,7 @@ public class UserController {
         user.setUsername(username);
         user.setPassword(password);
         user.setCreationtime(new Date());
-        user.setSex("0");
+        user.setSex("1");
         user.setMajorid(1);
         user.setRole(0);
         user.setTotalcredits(0);
