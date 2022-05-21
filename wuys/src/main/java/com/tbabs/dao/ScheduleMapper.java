@@ -1,5 +1,6 @@
 package com.tbabs.dao;
 
+import com.tbabs.pojo.Course;
 import com.tbabs.pojo.Schedule;
 import com.tbabs.pojo.ScheduleExample;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface ScheduleMapper {
     int updateByExampleSelective(@Param("record") Schedule record, @Param("example") ScheduleExample example);
 
     int updateByExample(@Param("record") Schedule record, @Param("example") ScheduleExample example);
+
+    List<Course> selectByUserId(@Param("userId") Integer userId, @Param("courName")String courName);
 }

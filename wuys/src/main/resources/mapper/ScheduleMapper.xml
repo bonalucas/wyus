@@ -137,4 +137,27 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <!-- 多表查询 -->
+  <resultMap id="SDResultMap" type="com.tbabs.pojo.Course">
+    <id column="courId" jdbcType="INTEGER" property="courid" />
+    <result column="courName" jdbcType="VARCHAR" property="courname" />
+    <result column="semester" jdbcType="CHAR" property="semester" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="credit" jdbcType="INTEGER" property="credit" />
+  </resultMap>
+  <sql id="SD_Column_List">
+    course.courId, courName, semester, period, credit
+  </sql>
+  <select id="selectByUserId" parameterType="com.tbabs.pojo.Schedule" resultMap="SDResultMap">
+    select
+    <include refid="SD_Column_List" />
+    from course, schedule
+    <where>
+      course.courId = schedule.courId and
+      userId = #{userId} and
+      courName LIKE "%"#{courName}"%"
+    </where>
+    order by course.courId
+  </select>
 </mapper>

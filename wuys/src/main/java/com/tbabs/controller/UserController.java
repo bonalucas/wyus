@@ -10,6 +10,7 @@ import com.tbabs.pojo.Major;
 import com.tbabs.pojo.User;
 import com.tbabs.service.CourseService;
 import com.tbabs.service.MajorService;
+import com.tbabs.service.ScheduleService;
 import com.tbabs.service.UserService;
 import com.tbabs.utils.FileNameUtil;
 import org.apache.shiro.SecurityUtils;
@@ -39,11 +40,13 @@ public class UserController {
     private MajorService majorService;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private ScheduleService scheduleService;
 
     @RequestMapping("/reception/user/doLogin")
-    public String doLogin(String username, String password, HttpServletRequest request, @RequestParam("code") String vercode) {
+    public String doLogin(Integer userid, String password, HttpServletRequest request, @RequestParam("code") String vercode) {
         String certCode = (String) request.getSession().getAttribute("certCode");
-        if ("".equals(username) || "".equals(password)) {
+        if ("".equals(String.valueOf(userid)) || "".equals(password)) {
             request.setAttribute("errorMessage", "账号或密码为空");
             return "public/login";
         }
@@ -55,7 +58,7 @@ public class UserController {
         // 每次登录操作之前都会进行清空之前登录缓存
         subject.logout();
         if (!subject.isAuthenticated()) {
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(String.valueOf(userid), password);
             try {
                 subject.login(token);
             } catch (UnknownAccountException e) {
@@ -67,19 +70,19 @@ public class UserController {
             }
         }
         // session处理信息存储
-        List<User> userList = userService.selectUser(username);
+        User user = userService.selectUserById(userid);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        request.getSession().setAttribute("createtime",simpleDateFormat.format(userList.get(0).getCreationtime()));
-        request.getSession().setAttribute("currUser",userList.get(0));
-        Major major = majorService.selectByMajorId(userList.get(0).getMajorid());
+        request.getSession().setAttribute("createtime",simpleDateFormat.format(user.getCreationtime()));
+        request.getSession().setAttribute("currUser",user);
+        Major major = majorService.selectByMajorId(user.getMajorid());
         request.getSession().setAttribute("currMajor", major);
         return "redirect:/backstage/success";
     }
 
     @RequestMapping("/reception/user/doRegister")
-    public String doRegister(String username, String password, HttpServletRequest request, @RequestParam("code")String vercode) {
+    public String doRegister(Integer userid, String username, String password, HttpServletRequest request, @RequestParam("code")String vercode) {
         String certCode = (String) request.getSession().getAttribute("certCode");
-        if ("".equals(username) || "".equals(password)) {
+        if ("".equals(String.valueOf(userid)) || "".equals(password)) {
             request.setAttribute("errorMessage", "账号或密码为空");
             return "public/register";
         }
@@ -87,20 +90,23 @@ public class UserController {
             request.setAttribute("errorMessage", "验证码错误");
             return "public/register";
         }
-        List<User> userList = userService.selectUser(username);
-        if (userList.size() > 0) {
+        User user = userService.selectUserById(userid);
+        if (user != null) {
             request.setAttribute("errorMessage", "用户名重复");
             return "public/register";
         }
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setCreationtime(new Date());
-        user.setSex("1");
-        user.setMajorid(1);
-        user.setRole(0);
-        user.setTotalcredits(0);
-        Integer res = userService.saveUser(user);
+        User newuser = new User();
+        newuser.setUserid(userid);
+        newuser.setUsername(username);
+        newuser.setPassword(password);
+        newuser.setCreationtime(new Date());
+        newuser.setSex("1");
+        newuser.setMajorid(1);
+        newuser.setRole(0);
+        newuser.setTotalcredits(0);
+        newuser.setRemarks("无");
+        newuser.setPicture("head.jpg");
+        Integer res = userService.saveUser(newuser);
         if (res <= 0) {
             request.setAttribute("errorMessage", "注册失败");
             return "public/register";
@@ -111,10 +117,10 @@ public class UserController {
 
     @RequestMapping(value = "/reception/user/checkUser", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String checkUser(String username){
-        List<User> userList = userService.selectUser(username);
+    public String checkUser(Integer userid){
+        User user = userService.selectUserById(userid);
 
-        if (userList.size() > 0) {
+        if (user != null) {
             return "用户名已被占用";
         }else{
             return "当前用户名可用";
@@ -164,6 +170,26 @@ public class UserController {
         PageHelper.startPage(page,limit);
 
         List<Course> courseList = courseService.selectCourses(courseExample);
+
+        PageInfo<Course> CourseInfo = new PageInfo<>(courseList, 5);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // CourseInfo转换为json字符串
+        return mapper.writeValueAsString(CourseInfo);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/backstage/course/showPerCourses", produces="text/html;charset=UTF-8;")
+    public String showPerCourses(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
+                              @RequestParam("courname") String courname, HttpServletRequest request) throws JsonProcessingException {
+        // 一页显示10条数据
+        PageHelper.startPage(page,limit);
+
+        // 获取当前的用户的学号
+        User currUser = (User) request.getSession().getAttribute("currUser");
+
+        List<Course> courseList = scheduleService.selectByUserId(currUser.getUserid(), courname);
 
         PageInfo<Course> CourseInfo = new PageInfo<>(courseList, 5);
 
