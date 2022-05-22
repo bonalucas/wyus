@@ -1,6 +1,7 @@
 package com.tbabs.service.impl;
 
 import com.tbabs.dao.UserMapper;
+import com.tbabs.pojo.SexInfo;
 import com.tbabs.pojo.User;
 import com.tbabs.pojo.UserExample;
 import com.tbabs.service.UserService;
@@ -40,5 +41,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> selectByUsername(String username) {
         return userMapper.selectByUsername(username);
+    }
+
+    @Override
+    public List<SexInfo> selectBySex() {
+        return userMapper.selectBySex();
     }
 }

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.tbabs.pojo.Course;
-import com.tbabs.pojo.CourseExample;
-import com.tbabs.pojo.Major;
-import com.tbabs.pojo.User;
+import com.tbabs.pojo.*;
 import com.tbabs.service.CourseService;
 import com.tbabs.service.MajorService;
 import com.tbabs.service.ScheduleService;
@@ -20,6 +17,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -197,5 +195,44 @@ public class UserController {
 
         // CourseInfo转换为json字符串
         return mapper.writeValueAsString(CourseInfo);
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/course/checkIsSelCourse")
+    public String checkIsSelCourse(Integer courid, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("currUser");
+
+        ScheduleExample scheduleExample = new ScheduleExample();
+        scheduleExample.createCriteria().andCouridEqualTo(courid).andUseridEqualTo(user.getUserid());
+
+        List<Schedule> scheduleList = scheduleService.selectByUserIdAndCourId(scheduleExample);
+
+        if (scheduleList.size() >= 1) {
+            // 表示已经选过该门课程
+            return "1";
+        }else{
+            // 表示未选过该门课程
+            return "0";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/schedule/saveSchedule")
+    public String saveSchedule(Integer courid, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("currUser");
+
+        Schedule schedule = new Schedule();
+        schedule.setUserid(user.getUserid());
+        System.out.println(courid);
+        schedule.setCourid(courid);
+        Integer res = scheduleService.saveSchedule(schedule);
+
+        if (res > 0) {
+            // 表示添加成功
+            return "1";
+        }else{
+            // 表示添加失败
+            return "-1";
+        }
     }
 }

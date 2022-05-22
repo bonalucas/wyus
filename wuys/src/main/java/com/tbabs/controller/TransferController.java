@@ -1,12 +1,21 @@
 package com.tbabs.controller;
 
+import com.tbabs.pojo.SexInfo;
+import com.tbabs.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @Controller
 public class TransferController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/reception/toLogin")
     public String toLogin(){
@@ -36,7 +45,9 @@ public class TransferController {
     }
 
     @RequestMapping("/backstage/toPG")
-    public String toPG() {
+    public String toPG(HttpServletRequest request) {
+        List<SexInfo> sexInfoList = userService.selectBySex();
+        request.setAttribute("sexInfoList",sexInfoList);
         return "iframe/pieGraph";
     }
 
@@ -44,6 +55,7 @@ public class TransferController {
     public String toCL() {
         return "iframe/carousel";
     }
+
     @RequestMapping("/backstage/toSG")
     public String toSG() {
         return "iframe/snapGraph";

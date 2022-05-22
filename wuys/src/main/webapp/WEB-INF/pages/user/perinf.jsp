@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
+            <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
                 <input type="text" name="username" lay-verify="required" value="${sessionScope.currUser.username}" disabled="disabled" autocomplete="off" class="layui-input">
             </div>

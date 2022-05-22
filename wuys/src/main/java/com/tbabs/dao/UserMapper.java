@@ -1,5 +1,6 @@
 package com.tbabs.dao;
 
+import com.tbabs.pojo.SexInfo;
 import com.tbabs.pojo.User;
 import com.tbabs.pojo.UserExample;
 import java.util.List;
@@ -29,4 +30,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     List<User> selectByUsername(String username);
+
+    List<SexInfo> selectBySex();
 }

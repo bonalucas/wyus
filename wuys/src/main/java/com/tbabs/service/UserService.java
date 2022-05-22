@@ -1,5 +1,6 @@
 package com.tbabs.service;
 
+import com.tbabs.pojo.SexInfo;
 import com.tbabs.pojo.User;
 import com.tbabs.pojo.UserExample;
 
@@ -16,4 +17,6 @@ public interface UserService {
     Integer updatePicturePath(User user);
     // 根据跳转查询用户信息
     List<User> selectByUsername(String username);
+    // 查询性别比例
+    List<SexInfo> selectBySex();
 }

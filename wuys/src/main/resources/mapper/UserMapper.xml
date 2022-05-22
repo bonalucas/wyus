@@ -311,4 +311,19 @@
     </where>
     order by userId
   </select>
+
+  <!-- 性别比例查询 -->
+  <resultMap id="SexResultMap" type="com.tbabs.pojo.SexInfo">
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Sex_Column_List">
+    sex, count(sex) as count
+  </sql>
+  <select id="selectBySex" resultMap="SexResultMap">
+    select
+    <include refid="Sex_Column_List" />
+    from user
+    group by sex
+  </select>
 </mapper>
