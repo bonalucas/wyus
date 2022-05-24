@@ -3,7 +3,6 @@ package com.tbabs.service.impl;
 import com.tbabs.dao.UserMapper;
 import com.tbabs.pojo.SexInfo;
 import com.tbabs.pojo.User;
-import com.tbabs.pojo.UserExample;
 import com.tbabs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer saveUser(User user) {
         return userMapper.insert(user);
-    }
-
-    @Override
-    public List<User> selectUser(String username) {
-        UserExample example = new UserExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        return userMapper.selectByExample(example);
     }
 
     @Override
@@ -46,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<SexInfo> selectBySex() {
         return userMapper.selectBySex();
+    }
+
+    @Override
+    public Integer updateUser(User user) {
+        return userMapper.updateByPrimaryKey(user);
     }
 }

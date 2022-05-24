@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,46 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
 </head>
 <body>
+<%--表单窗口--%>
+<div class="site-text" style="margin: 5%; display: none" id="window"  target="test123">
+    <form class="layui-form" id="form" method="post" lay-filter="example">
+        <div class="layui-form-item">
+            <label class="layui-form-label">学生编号</label>
+            <div class="layui-input-block">
+                <input type="text" id="wuserid" name="wuserid" lay-verify="title" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学生名称</label>
+            <div class="layui-input-block">
+                <input type="text" id="wusername" name="wusername" lay-verify="title" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="wsex" value="1" title="男">
+                <input type="radio" name="wsex" value="0" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">专业名称</label>
+            <div class="layui-input-block">
+                <select name="wmajorname" id="wmajorname" lay-filter="wmajorname">
+                    <c:forEach var="major" items="${requestScope.majorList}">
+                        <option value="${major.majorid}">${major.majorname}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">总学分</label>
+            <div class="layui-input-block">
+                <input type="number" id="wtotalcredits" name="wtotalcredits" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </form>
+</div>
 
 <div class="demoTable">
     搜索学生名字：
@@ -29,15 +70,14 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-radius" lay-event="edit">编辑</a>
 </script>
 
 
 <script src="${pageContext.request.contextPath}/layui/layui.js" charset="utf-8"></script>
 
 <script>
-    layui.use('table', function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
 
         table.render({
@@ -65,9 +105,9 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'userid', title:'学生编号', width:120, fixed: 'left', unresize: true, sort: true}
-                ,{field:'username', title:'学生名字', width:120, sort: true}
+                ,{field:'username', title:'学生名称', width:120, sort: true}
                 ,{field:'sex', title:'性别', width:80, sort: true, templet: '<div>{{d.sex == 1 ? "男" : "女"}}</div>'}
-                ,{field:'majorname', title:'专业名字', width:160, sort: true}
+                ,{field:'majorname', title:'专业名称', width:160, sort: true}
                 ,{field:'totalcredits', title:'总学分', width:100, sort: true}
                 ,{fixed: 'right', title:'操作', width:150, toolbar: '#barDemo'}
             ]]
@@ -121,21 +161,48 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            //console.log(obj)
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+            var form = layui.form;
+            if(obj.event === 'edit'){
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-molv',
+                    title:"修改学生信息",
+                    area:['50%','50%'],
+                    btn: ['提交', '取消'],
+                    content: $("#window"),
+                    success:function(){
+                        form.val("example",{
+                            "wuserid": data.userid,
+                            "wusername": data.username,
+                            "wsex": data.sex,
+                            "wmajorname": data.majorid,
+                            "wtotalcredits": data.totalcredits
+                        });
+                    },
+                    yes:function(index){
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/backstage/man/updateUser",
+                            type: "post",
+                            data: {
+                                'userid': data.userid,
+                                'sex': $('input[name="wsex"]:checked').val(),
+                                'majorid': $('#wmajorname option:selected').val(),
+                                'totalcredits': $('#wtotalcredits').val()
+                            },
+                            dataType: "text",
+                            success: function (res1){
+                                if (res1 === "1") {
+                                    layer.msg("修改成功", {icon: 6})
+                                    // 关闭弹出层
+                                    layer.close(index);
+                                    // 刷新表格
+                                    table.reload('getStudent');
+                                }else{
+                                    layer.msg("修改失败，系统异常", {icon: 5})
+                                }
+                            }
+                        });
+                    }
                 });
             }
         });

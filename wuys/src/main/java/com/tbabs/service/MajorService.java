@@ -11,4 +11,10 @@ public interface MajorService {
     Major selectByMajorId(Integer majorId);
     // 根据条件查询专业信息
     List<Major> selectByExample(MajorExample majorExample);
+    // 删除专业信息
+    Integer deleteMajor(Integer majorid);
+    // 增加专业信息
+    Integer addMajor(Major major);
+    // 修改专业信息
+    Integer updateMajor(Major major);
 }

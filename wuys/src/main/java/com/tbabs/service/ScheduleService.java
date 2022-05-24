@@ -13,4 +13,6 @@ public interface ScheduleService {
     List<Schedule> selectByUserIdAndCourId(ScheduleExample scheduleExample);
     // 添加选课信息
     Integer saveSchedule(Schedule schedule);
+    // 删除选课信息
+    Integer deleteSchedule(ScheduleExample scheduleExample);
 }

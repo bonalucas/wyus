@@ -17,7 +17,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -223,7 +222,6 @@ public class UserController {
 
         Schedule schedule = new Schedule();
         schedule.setUserid(user.getUserid());
-        System.out.println(courid);
         schedule.setCourid(courid);
         Integer res = scheduleService.saveSchedule(schedule);
 
@@ -232,6 +230,24 @@ public class UserController {
             return "1";
         }else{
             // 表示添加失败
+            return "-1";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/schedule/deleteSchedule")
+    public String deleteSchedule(Integer courid, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("currUser");
+
+        ScheduleExample scheduleExample = new ScheduleExample();
+        scheduleExample.createCriteria().andUseridEqualTo(user.getUserid()).andCouridEqualTo(courid);
+        Integer res = scheduleService.deleteSchedule(scheduleExample);
+
+        if (res > 0) {
+            // 表示删除成功
+            return "1";
+        }else{
+            // 表示删除失败
             return "-1";
         }
     }

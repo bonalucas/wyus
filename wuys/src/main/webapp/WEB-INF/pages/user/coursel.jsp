@@ -29,8 +29,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-radius" lay-event="edit">退选</a>
 </script>
 
 
@@ -67,9 +66,9 @@
                 ,{field:'courid', title:'课程编号', width:120, fixed: 'left', unresize: true, sort: true}
                 ,{field:'courname', title:'课程名字', width:150, sort: true}
                 ,{field:'semester', title:'所属学期', width:120, sort: true}
-                ,{field:'period', title:'学时', width:100, sort: true}
-                ,{field:'credit', title:'学分', width:90,  sort: true}
-                ,{fixed: 'right', title:'操作', width:150, toolbar: '#barDemo'}
+                ,{field:'period', title:'学时', width:120, sort: true}
+                ,{field:'credit', title:'学分', width:120,  sort: true}
+                ,{fixed: 'right', title:'操作', width:100, toolbar: '#barDemo'}
             ]]
             ,page: true
             ,limits:[10,20]
@@ -121,21 +120,22 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            //console.log(obj)
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
+            if(obj.event === 'edit'){
+                layer.confirm("确认退选《"+data.courname+"》课程", {icon: 3, title: "再次确认"},function (){
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/backstage/schedule/deleteSchedule",
+                        type: "post",
+                        data: {'courid': data.courid},
+                        dataType: "text",
+                        success: function (res1){
+                            if (res1 === "1") {
+                                layer.msg("退选成功", {icon: 6})
+                                table.reload('getCourse');
+                            }else{
+                                layer.msg("退选失败，系统异常", {icon: 5})
+                            }
+                        }
                     });
-                    layer.close(index);
                 });
             }
         });

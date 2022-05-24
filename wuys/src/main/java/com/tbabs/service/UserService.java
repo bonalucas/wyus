@@ -9,8 +9,6 @@ import java.util.List;
 public interface UserService {
     // 保存用户信息
     Integer saveUser(User user);
-    // 查询用户信息
-    List<User> selectUser(String username);
     // 根据用户编号查询用户信息
     User selectUserById(Integer userId);
     // 修改图片路径
@@ -19,4 +17,6 @@ public interface UserService {
     List<User> selectByUsername(String username);
     // 查询性别比例
     List<SexInfo> selectBySex();
+    // 修改学生信息
+    Integer updateUser(User user);
 }

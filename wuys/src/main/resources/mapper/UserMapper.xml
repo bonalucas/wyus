@@ -294,11 +294,12 @@
     <id column="userId" jdbcType="INTEGER" property="userid" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="majorId" jdbcType="INTEGER" property="majorid" />
     <result column="majorName" jdbcType="VARCHAR" property="majorname" />
     <result column="totalCredits" jdbcType="INTEGER" property="totalcredits" />
   </resultMap>
   <sql id="UM_Column_List">
-    userId, username, sex, majorName, totalCredits
+    userId, username, sex, user.majorId, majorName, totalCredits
   </sql>
   <select id="selectByUsername" parameterType="com.tbabs.pojo.User" resultMap="UMResultMap">
     select

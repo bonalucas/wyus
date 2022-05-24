@@ -19,4 +19,19 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> selectCourses(CourseExample courseExample) {
         return courseMapper.selectByExample(courseExample);
     }
+
+    @Override
+    public Integer deleteCourse(Integer courid) {
+        return courseMapper.deleteByPrimaryKey(courid);
+    }
+
+    @Override
+    public Integer addCourse(Course course) {
+        return courseMapper.insert(course);
+    }
+
+    @Override
+    public Integer updateCourse(Course course) {
+        return courseMapper.updateByPrimaryKey(course);
+    }
 }

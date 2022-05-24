@@ -29,4 +29,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Integer saveSchedule(Schedule schedule) {
         return scheduleMapper.insertSelective(schedule);
     }
+
+    @Override
+    public Integer deleteSchedule(ScheduleExample scheduleExample) {
+        return scheduleMapper.deleteByExample(scheduleExample);
+    }
 }

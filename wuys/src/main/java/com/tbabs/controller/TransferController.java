@@ -1,6 +1,9 @@
 package com.tbabs.controller;
 
+import com.tbabs.pojo.Major;
+import com.tbabs.pojo.MajorExample;
 import com.tbabs.pojo.SexInfo;
+import com.tbabs.service.MajorService;
 import com.tbabs.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -16,6 +19,8 @@ public class TransferController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MajorService majorService;
 
     @RequestMapping("/reception/toLogin")
     public String toLogin(){
@@ -102,7 +107,11 @@ public class TransferController {
     }
 
     @RequestMapping("/backstage/man/toStuman")
-    public String toStuman() {
+    public String toStuman(HttpServletRequest request) {
+        MajorExample majorExample = new MajorExample();
+        majorExample.or();
+        List<Major> majorList = majorService.selectByExample(majorExample);
+        request.setAttribute("majorList", majorList);
         return "admin/stuman";
     }
 }

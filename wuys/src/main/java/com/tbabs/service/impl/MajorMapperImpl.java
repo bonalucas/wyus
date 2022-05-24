@@ -23,4 +23,19 @@ public class MajorMapperImpl implements MajorService {
     public List<Major> selectByExample(MajorExample majorExample) {
         return majorMapper.selectByExample(majorExample);
     }
+
+    @Override
+    public Integer deleteMajor(Integer majorid) {
+        return majorMapper.deleteByPrimaryKey(majorid);
+    }
+
+    @Override
+    public Integer addMajor(Major major) {
+        return majorMapper.insert(major);
+    }
+
+    @Override
+    public Integer updateMajor(Major major) {
+        return majorMapper.updateByPrimaryKey(major);
+    }
 }
