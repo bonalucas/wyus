@@ -22,9 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -41,7 +46,7 @@ public class UserController {
     private ScheduleService scheduleService;
 
     @RequestMapping("/reception/user/doLogin")
-    public String doLogin(Integer userid, String password, HttpServletRequest request, @RequestParam("code") String vercode) {
+    public String doLogin(Integer userid, String password, HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String vercode) {
         String certCode = (String) request.getSession().getAttribute("certCode");
         if ("".equals(String.valueOf(userid)) || "".equals(password)) {
             request.setAttribute("errorMessage", "账号或密码为空");
@@ -73,6 +78,22 @@ public class UserController {
         request.getSession().setAttribute("currUser",user);
         Major major = majorService.selectByMajorId(user.getMajorid());
         request.getSession().setAttribute("currMajor", major);
+        // 将当前登录时间保存在cookie中
+        String lasttime = simpleDateFormat.format(new Date());
+        Cookie currCookie = new Cookie("lasttime", URLEncoder.encode(lasttime, StandardCharsets.UTF_8));
+        response.addCookie(currCookie);
+        // 获取上次登录的时间
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                String name = cookie.getName();
+                if ("lasttime".equals(name)) {
+                    lasttime = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+                }
+            }
+        }
+        request.getSession().setAttribute("lasttime", lasttime);
+        // 重定向主页面
         return "redirect:/backstage/success";
     }
 
@@ -129,9 +150,9 @@ public class UserController {
     public Map<String, Object> upload(MultipartFile file, HttpServletRequest request) throws IOException {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> data = new HashMap<>();
-        String filePath = "C:\\Users\\30141\\IdeaProjects\\hw\\wuys\\src\\main\\webapp\\imgs\\upload\\";
+        String filePath = request.getServletContext().getRealPath("/imgs/upload");
         String saveFileName = FileNameUtil.getUUIDFileName() + FileNameUtil.getFileType(Objects.requireNonNull(file.getOriginalFilename()));
-        String uploadImgPath = filePath + saveFileName;
+        String uploadImgPath = filePath + File.separator + saveFileName;
         // 修改数据库中的图片路径
         User user = (User) request.getSession().getAttribute("currUser");
         user.setPicture("upload/" + saveFileName);

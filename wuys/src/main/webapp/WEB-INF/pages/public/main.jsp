@@ -3,12 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>首页</title>
+    <title>五邑大学选课系统</title>
     <link rel="icon" sizes="192x192" href="${pageContext.request.contextPath}/imgs/logo.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 </head>
 <body>
+<div id="uppic" style="display:none;">
+    <div class="layui-upload"  style="position: absolute; left: 100px; top: 50px">
+        <div class="layui-upload-list">
+            <img class="layui-upload-img" id="demo1" style="width: 200px; height: 200px"
+                 alt="照片" src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}">
+            <p id="demoText"></p>
+        </div>
+        <br>
+        <button type="button" class="layui-btn" id="test1">上传图片</button>
+    </div>
+</div>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo layui-hide-xs layui-bg-black">
@@ -25,6 +36,10 @@
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide-xs">
+                <i class="layui-icon layui-icon-time" style="font-size: 15px; color: #1E9FFF;"></i>&nbsp;
+                <span id="time"></span>
+            </li>
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:">
                     <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img">
@@ -39,7 +54,14 @@
                            class="site-demo-active"
                            data-type="tabAdd"
                     >个人信息</a></dd>
-                    <dd><a href="javascript:void(0);">设置</a></dd>
+                    <dd><a href="javascript:"
+                           data-url="${pageContext.request.contextPath}/backstage/toUpkwd"
+                           data-id="upkwd"
+                           data-title="<i class='layui-icon layui-icon-key'
+                            style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;修改密码"
+                           class="site-demo-active"
+                           data-type="tabAdd"
+                    >修改密码</a></dd>
                     <dd><a href="${pageContext.request.contextPath}/backstage/doLogout">注销</a></dd>
                 </dl>
             </li>
@@ -55,7 +77,9 @@
         <div class="layui-side-scroll">
             <div style="text-align: center;padding-bottom: 15px;padding-top: 15px;padding-right: 25px">
                 <a href="javascript:" style="text-align: center">
-                    <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img" style="width:110px; height: 110px">
+                    <a href="javascript:" id="updatePicture" data-method="offset" data-type="auto">
+                        <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img" style="width:110px; height: 110px">
+                    </a>
                     <p style="color: #FFFFFF">
                         欢迎，${sessionScope.currUser.username}
                     </p>
@@ -135,7 +159,6 @@
 
     <div class="layui-body">
         <div style="padding: 15px">
-
             <div class="layui-bg-gray" style="padding: 10px">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md8">
@@ -180,17 +203,32 @@
         </div>
     </div>
 
-    <div class="layui-footer" style="text-align: center; color:#cccccc;">
-        五邑大学2020级JavaWeb(必修)
+    <div class="layui-footer" style="text-align: center; color:rgba(0,0,0,.7);">
+        上次登录时间：${sessionScope.lasttime}
     </div>
 </div>
 <script>
-    //JS
-    layui.use(['element', 'layer', 'util'], function(){
+    layui.use(['upload', 'element', 'layer', 'util', 'jquery'], function(){
         var element = layui.element
             ,layer = layui.layer
             ,util = layui.util
-            ,$ = layui.$;
+            ,$ = layui.$
+            ,upload = layui.upload;
+
+        // 时钟定时器
+        setInterval(function () {
+            let dateStr = "";
+            let date = new Date();
+            dateStr += date.getFullYear()+"年";
+            dateStr += ((date.getMonth()+1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth()+1))+"月";
+            dateStr += (date.getDate() < 10 ? "0"+date.getDate() : date.getDate()) + "日 ";
+            dateStr += (date.getHours() < 10 ? "0"+date.getHours() : date.getHours()) + "时";
+            dateStr += (date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()) + "分";
+            dateStr += (date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds()) + "秒 ";
+            let xq = ["日","一","二","三","四","五","六"];
+            dateStr += "星期" + xq[date.getDay()];
+            $('#time').text(dateStr);
+        })
 
         //头部事件
         util.event('lay-header-event', {
@@ -239,8 +277,57 @@
                 $.each(ids, function (i, item) {
                     element.tabDelete("demo", item); //ids是一个数组，里面存放了多个id，调用tabDelete方法分别删除
                 })
+            },
+            offset: function(othis){
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim',
+                    area: ['400px', '500px'],
+                    title: '更新照片',
+                    content: $("#uppic"),
+                    cancel: function () {
+                        $("#uppic").hide()
+                    }
+                });
             }
         };
+
+        $('#updatePicture').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '${pageContext.request.contextPath}/backstage/user/upload'
+            , accept:'images'
+            , acceptMime: 'image/*'
+            , before: function (obj) {
+                //预先回显图片
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result);
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }
+                layer.msg('更新图片中', {icon: 16, time: 2000},function (){
+                    $('#demoText').html(''); //置空上传失败的状态
+                    window.location.href = "${pageContext.request.contextPath}/backstage/user/updateSession?userId=" + ${sessionScope.currUser.userid}
+                });
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
         //当点击有site-demo-active属性的标签时，即左侧菜单栏中内容 ，触发点击事件
         $('.site-demo-active').on(
             'click',

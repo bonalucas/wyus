@@ -109,7 +109,10 @@
                 if (res.code > 0) {
                     return layer.msg('上传失败');
                 }
-                loading(res)
+                layer.msg('更新图片中', {icon: 16, time: 2000},function (){
+                    $('#demoText').html(''); //置空上传失败的状态
+                    window.parent.location.href = "${pageContext.request.contextPath}/backstage/user/updateSession?userId=" + ${sessionScope.currUser.userid}
+                });
             }
             , error: function () {
                 //演示失败状态，并实现重传
@@ -121,23 +124,6 @@
             }
         });
     });
-    //判断图片是否存在
-    function CheckImgExists(imgurl) {
-        var ImgObj = new Image(); //判断图片是否存在
-        ImgObj.src = imgurl;
-        //存在图片
-        return ImgObj.width > 0 && ImgObj.height > 0;
-    }
-    function loading(res){
-        layer.msg('更新图片中', {icon: 16, time: 10000},function (){
-            if (CheckImgExists(res.data.src)) {
-                $('#demoText').html(''); //置空上传失败的状态
-                window.parent.location.href = "${pageContext.request.contextPath}/backstage/user/updateSession?userId=" + ${sessionScope.currUser.userid}
-            }else{
-                loading(res)
-            }
-        });
-    }
 </script>
 </body>
 </html>

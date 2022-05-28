@@ -35,7 +35,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">专业名称</label>
             <div class="layui-input-block">
-                <select name="wmajorname" id="wmajorname" lay-filter="wmajorname">
+                <select name="wmajorname" id="wmajorname" lay-filter="wmajorname" lay-search>
                     <c:forEach var="major" items="${requestScope.majorList}">
                         <option value="${major.majorid}">${major.majorname}</option>
                     </c:forEach>
