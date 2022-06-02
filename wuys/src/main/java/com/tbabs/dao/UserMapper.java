@@ -1,8 +1,7 @@
 package com.tbabs.dao;
 
-import com.tbabs.pojo.SexInfo;
-import com.tbabs.pojo.User;
-import com.tbabs.pojo.UserExample;
+import com.tbabs.pojo.*;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -32,4 +31,8 @@ public interface UserMapper {
     List<User> selectByUsername(String username);
 
     List<SexInfo> selectBySex();
+
+    List<HotMajor> selectByHot();
+
+    List<HotTrend> selectByTrend(@Param("majorid") Integer majorid);
 }

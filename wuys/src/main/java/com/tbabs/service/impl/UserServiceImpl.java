@@ -1,6 +1,8 @@
 package com.tbabs.service.impl;
 
 import com.tbabs.dao.UserMapper;
+import com.tbabs.pojo.HotMajor;
+import com.tbabs.pojo.HotTrend;
 import com.tbabs.pojo.SexInfo;
 import com.tbabs.pojo.User;
 import com.tbabs.service.UserService;
@@ -43,5 +45,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateUser(User user) {
         return userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public List<HotMajor> selectByHot() {
+        return userMapper.selectByHot();
+    }
+
+    @Override
+    public List<HotTrend> selectByTrend(Integer majorid) {
+        return userMapper.selectByTrend(majorid);
     }
 }

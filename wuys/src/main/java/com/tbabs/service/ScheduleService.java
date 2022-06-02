@@ -1,6 +1,7 @@
 package com.tbabs.service;
 
 import com.tbabs.pojo.Course;
+import com.tbabs.pojo.HotCourse;
 import com.tbabs.pojo.Schedule;
 import com.tbabs.pojo.ScheduleExample;
 
@@ -15,4 +16,6 @@ public interface ScheduleService {
     Integer saveSchedule(Schedule schedule);
     // 删除选课信息
     Integer deleteSchedule(ScheduleExample scheduleExample);
+    // 查询热门课程
+    List<HotCourse> selectByHotCourse();
 }

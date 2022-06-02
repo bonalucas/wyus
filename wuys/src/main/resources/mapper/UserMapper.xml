@@ -327,4 +327,40 @@
     from user
     group by sex
   </select>
+
+  <!-- 热门专业查询 -->
+  <resultMap id="HotResultMap" type="com.tbabs.pojo.HotMajor">
+    <result column="majorId" jdbcType="INTEGER" property="majorid" />
+    <result column="majorName" jdbcType="VARCHAR" property="majorname" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Hot_Column_List">
+    major.majorId, major.majorName, COUNT(userId) count
+  </sql>
+  <select id="selectByHot" resultMap="HotResultMap">
+    select
+    <include refid="Hot_Column_List" />
+    FROM user, major
+    WHERE user.majorId = major.majorId
+    GROUP BY user.majorId
+    ORDER BY count DESC
+    LIMIT 3
+  </select>
+
+  <!-- 专业趋势 -->
+  <resultMap id="TDResultMap" type="com.tbabs.pojo.HotTrend">
+    <result column="majorId" jdbcType="INTEGER" property="majorid" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="TD_Column_List">
+    majorId, COUNT(*) count
+  </sql>
+  <select id="selectByTrend" parameterType="java.lang.Integer" resultMap="HotResultMap">
+    select
+    <include refid="TD_Column_List" />
+    From user
+    WHERE majorId = #{majorid} AND creationTime &gt;= "1987" AND creationTime &lt;= "1992"
+    GROUP BY DATE_FORMAT(creationTime, '%Y')
+    ORDER BY DATE_FORMAT(creationTime, '%Y')
+  </select>
 </mapper>

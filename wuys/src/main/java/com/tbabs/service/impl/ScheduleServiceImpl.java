@@ -2,6 +2,7 @@ package com.tbabs.service.impl;
 
 import com.tbabs.dao.ScheduleMapper;
 import com.tbabs.pojo.Course;
+import com.tbabs.pojo.HotCourse;
 import com.tbabs.pojo.Schedule;
 import com.tbabs.pojo.ScheduleExample;
 import com.tbabs.service.ScheduleService;
@@ -33,5 +34,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Integer deleteSchedule(ScheduleExample scheduleExample) {
         return scheduleMapper.deleteByExample(scheduleExample);
+    }
+
+    @Override
+    public List<HotCourse> selectByHotCourse() {
+        return scheduleMapper.selectByHotCourse();
     }
 }

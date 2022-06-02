@@ -18,55 +18,48 @@
     layui.use([ 'jquery', 'form', 'layer', 'laydate', 'table', 'layedit',
             'upload', 'element', 'carousel' ],
         function() {
-
-            var $ = layui.jquery;
-            var element = layui.element;
             carousel = layui.carousel;
-            var form = layui.form;
-            var layer = layui.layer;
-            var laydate = layui.laydate;
-            var table = layui.table;
-            var layedit = layui.layedit;
-            var upload = layui.upload;
 
             var chartZhuZhuang = echarts.init(document
                 .getElementById('EchartZhuZhuang'));
-            //指定图表配置项和数据
             var optionchart = {
-                // title : {
-                //     text : '数据分析'
-                // },
+                title : {
+                    text : '热门课程'
+                },
                 tooltip : {},
                 legend : {
-                    data : [ '数据量' ]
+                    data : [ '' ]
                 },
                 xAxis : {
-                    data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周天' ]
+                    data : [
+                        '${requestScope.hotCourseList.get(0).courname}',
+                        '${requestScope.hotCourseList.get(1).courname}',
+                        '${requestScope.hotCourseList.get(2).courname}',
+                        '${requestScope.hotCourseList.get(3).courname}',
+                        '${requestScope.hotCourseList.get(4).courname}'
+                    ]
                 },
                 yAxis : {
                     type : 'value'
                 },
-                series : [ {
-                    name : '销量',
-                    type : 'bar', //柱状
-                    data : [ 100, 200, 300, 400, 500, 600, 700 ],
-                    itemStyle : {
-                        normal : { //柱子颜色
-                            color : 'red'
-                        }
-                    },
-                }, {
-                    name : '产量',
+                series : [{
+                    name : '选课人数',
                     type : 'bar',
-                    data : [ 120, 210, 340, 430, 550, 680, 720 ],
+                    data : [
+                        '${requestScope.hotCourseList.get(0).count}',
+                        '${requestScope.hotCourseList.get(1).count}',
+                        '${requestScope.hotCourseList.get(2).count}',
+                        '${requestScope.hotCourseList.get(3).count}',
+                        '${requestScope.hotCourseList.get(4).count}'
+                    ],
                     itemStyle : {
                         normal : {
-                            color : 'blue'
+                            color : 'green'
                         }
                     }
                 } ]
             };
-            chartZhuZhuang.setOption(optionchart, true); // 柱状图
+            chartZhuZhuang.setOption(optionchart, true);
         });
 </script>
 </html>

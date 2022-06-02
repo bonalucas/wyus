@@ -160,4 +160,23 @@
     </where>
     order by course.courId
   </select>
+
+  <!-- 热门课程 -->
+  <resultMap id="HCResultMap" type="com.tbabs.pojo.HotCourse">
+    <result column="courId" jdbcType="INTEGER" property="courid" />
+    <result column="courName" jdbcType="VARCHAR" property="courname" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="HC_Column_List">
+    course.courId, courName, COUNT(userId) count
+  </sql>
+  <select id="selectByHotCourse" resultMap="HCResultMap">
+    select
+    <include refid="HC_Column_List" />
+    from course, schedule
+    WHERE course.courId = schedule.courId
+    GROUP BY schedule.courId
+    ORDER BY count DESC
+    LIMIT 5
+  </select>
 </mapper>

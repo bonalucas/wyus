@@ -18,58 +18,65 @@
     layui.use([ 'jquery', 'form', 'layer', 'laydate', 'table', 'layedit',
             'upload', 'element', 'carousel' ],
         function() {
-
-            var $ = layui.jquery;
-            var element = layui.element;
             carousel = layui.carousel;
-            var form = layui.form;
-            var layer = layui.layer;
-            var laydate = layui.laydate;
-            var table = layui.table;
-            var layedit = layui.layedit;
-            var upload = layui.upload;
 
             var chartZheXian = echarts.init(document
                 .getElementById('EchartZheXian'));
-            //指定图表配置项和数据
             var optionchartZhe = {
-                // title : {
-                //     text : '数据分析'
-                // },
+                title : {
+                    text : '近五年热门专业趋势',
+                },
                 tooltip : {},
-                legend : { //顶部显示 与series中的数据类型的name一致
-                    data : [ '销量', '产量', '营业额', '单价' ]
+                legend : {
+                    orient : 'vertical',
+                    right : 'right',
+                    data : [ '${requestScope.hotMajorList.get(0).majorname}',
+                             '${requestScope.hotMajorList.get(1).majorname}',
+                             '${requestScope.hotMajorList.get(2).majorname}'
+                    ]
                 },
                 xAxis : {
-                    // type: 'category',
-                    // boundaryGap: false, //从起点开始
-                    data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ]
+                    data : ['1987', '1988', '1989', '1990', '1991']
                 },
                 yAxis : {
                     type : 'value'
                 },
                 series : [ {
-                    name : '销量',
-                    type : 'line', //线性
-                    data : [ 145, 230, 701, 734, 1090, 1130, 1120 ],
+                    smooth : true,
+                    name : '${requestScope.hotMajorList.get(0).majorname}',
+                    type : 'line',
+                    data : [
+                        '${requestScope.firstHot.get(0).count}',
+                        '${requestScope.firstHot.get(1).count}',
+                        '${requestScope.firstHot.get(2).count}',
+                        '${requestScope.firstHot.get(3).count}',
+                        '${requestScope.firstHot.get(4).count}'
+                    ],
                 }, {
-                    name : '产量',
-                    type : 'line', //线性
-                    data : [ 720, 832, 801, 834, 1190, 1230, 1220 ],
+                    smooth : true,
+                    name : '${requestScope.hotMajorList.get(1).majorname}',
+                    type : 'line',
+                    data : [
+                        '${requestScope.secondHot.get(0).count}',
+                        '${requestScope.secondHot.get(1).count}',
+                        '${requestScope.secondHot.get(2).count}',
+                        '${requestScope.secondHot.get(3).count}',
+                        '${requestScope.secondHot.get(4).count}'
+                    ],
                 }, {
-                    smooth : true, //曲线 默认折线
-                    name : '营业额',
-                    type : 'line', //线性
-                    data : [ 820, 932, 901, 934, 1290, 1330, 1320 ],
-                }, {
-                    smooth : true, //曲线
-                    name : '单价',
-                    type : 'line', //线性
-                    data : [ 220, 332, 401, 534, 690, 730, 820 ],
-                } ]
+                    smooth : true,
+                    name : '${requestScope.hotMajorList.get(2).majorname}',
+                    type : 'line',
+                    data : [
+                        '${requestScope.thirdHot.get(0).count}',
+                        '${requestScope.thirdHot.get(1).count}',
+                        '${requestScope.thirdHot.get(2).count}',
+                        '${requestScope.thirdHot.get(3).count}',
+                        '${requestScope.thirdHot.get(4).count}'
+                    ],
+                }]
             };
-            chartZheXian.setOption(optionchartZhe, true); // 折线图
-
+            chartZheXian.setOption(optionchartZhe, true);
         });
 </script>
 </html>

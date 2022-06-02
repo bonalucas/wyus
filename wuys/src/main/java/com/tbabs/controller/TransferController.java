@@ -1,9 +1,8 @@
 package com.tbabs.controller;
 
-import com.tbabs.pojo.Major;
-import com.tbabs.pojo.MajorExample;
-import com.tbabs.pojo.SexInfo;
+import com.tbabs.pojo.*;
 import com.tbabs.service.MajorService;
+import com.tbabs.service.ScheduleService;
 import com.tbabs.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -21,6 +20,8 @@ public class TransferController {
     private UserService userService;
     @Autowired
     private MajorService majorService;
+    @Autowired
+    private ScheduleService scheduleService;
 
     @RequestMapping("/reception/toLogin")
     public String toLogin(){
@@ -62,12 +63,22 @@ public class TransferController {
     }
 
     @RequestMapping("/backstage/toSG")
-    public String toSG() {
+    public String toSG(HttpServletRequest request) {
+        List<HotMajor> hotMajorList = userService.selectByHot();
+        request.setAttribute("hotMajorList", hotMajorList);
+        List<HotTrend> firstHot = userService.selectByTrend(hotMajorList.get(0).getMajorid());
+        List<HotTrend> secondHot = userService.selectByTrend(hotMajorList.get(1).getMajorid());
+        List<HotTrend> thirdHot = userService.selectByTrend(hotMajorList.get(2).getMajorid());
+        request.setAttribute("firstHot", firstHot);
+        request.setAttribute("secondHot", secondHot);
+        request.setAttribute("thirdHot", thirdHot);
         return "iframe/snapGraph";
     }
 
     @RequestMapping("/backstage/toCG")
-    public String toCG() {
+    public String toCG(HttpServletRequest request) {
+        List<HotCourse> hotCourseList = scheduleService.selectByHotCourse();
+        request.setAttribute("hotCourseList", hotCourseList);
         return "iframe/columnarGraph";
     }
 

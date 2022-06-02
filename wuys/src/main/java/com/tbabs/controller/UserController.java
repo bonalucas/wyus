@@ -272,4 +272,37 @@ public class UserController {
             return "-1";
         }
     }
+
+    @ResponseBody
+    @RequestMapping("/backstage/user/checkPwd")
+    public String checkPwd(String password, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("currUser");
+        String currPassword = user.getPassword();
+        if (currPassword.equals(password)) {
+            // 返回1表示当前数据可用
+            return "1";
+        }else{
+            // 返回-1表示当前数据不一致
+            return "-1";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/user/updatePwd")
+    public String updatePwd(String password, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("currUser");
+        if (password != null) {
+            user.setPassword(password);
+            Integer res = userService.updateUser(user);
+            if (res > 0) {
+                // 修改成功
+                return "1";
+            }else{
+                // 修改失败
+                return "-1";
+            }
+        }else{
+            return "-1";
+        }
+    }
 }

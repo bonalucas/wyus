@@ -1,8 +1,7 @@
 package com.tbabs.service;
 
-import com.tbabs.pojo.SexInfo;
-import com.tbabs.pojo.User;
-import com.tbabs.pojo.UserExample;
+import com.tbabs.pojo.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +18,8 @@ public interface UserService {
     List<SexInfo> selectBySex();
     // 修改学生信息
     Integer updateUser(User user);
+    // 查询热门专业信息
+    List<HotMajor> selectByHot();
+    // 查询专业趋势
+    List<HotTrend> selectByTrend(Integer majorid);
 }

@@ -26,20 +26,20 @@
             var optionchartBing = {
                 title : {
                     text : '学校男女生比例',
-                    x : 'center' //标题居中
+                    // x : 'center' //标题居中
                 },
                 tooltip : {
                     trigger: 'item' //悬浮显示对比
                 },
                 legend : {
                     orient : 'vertical', //类型垂直,默认水平
-                    left : 'left', //类型区分在左 默认居中
+                    right : 'right', //类型区分在左 默认居中
                     data : [ '男生', '女生' ]
                 },
                 series : [ {
                     type : 'pie', //饼状
                     radius : '70%', //圆的大小
-                    center : [ '50%', '60%' ], //居中
+                    center : [ '50%', '50%' ],
                     data : [ {
                         value : ${requestScope.sexInfoList.get(1).count},
                         name : '男生'
