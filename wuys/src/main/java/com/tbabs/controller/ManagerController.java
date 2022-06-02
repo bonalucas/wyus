@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.tbabs.pojo.*;
 import com.tbabs.service.CourseService;
 import com.tbabs.service.MajorService;
+import com.tbabs.service.NoticeService;
 import com.tbabs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -25,6 +28,8 @@ public class ManagerController {
     private MajorService majorService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NoticeService noticeService;
 
     @ResponseBody
     @RequestMapping(value = "/backstage/man/showManCourses", produces="text/html;charset=UTF-8;")
@@ -68,8 +73,8 @@ public class ManagerController {
 
     @ResponseBody
     @RequestMapping(value = "/backstage/man/showManStudent", produces="text/html;charset=UTF-8;")
-    public String showManStudent(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
-                                 @RequestParam("username") String username, HttpServletRequest request) throws JsonProcessingException {
+    public String showManStudent(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam("limit") Integer limit,
+                                 @RequestParam("username") String username) throws JsonProcessingException {
         // 一页显示10条数据
         PageHelper.startPage(page,limit);
 
@@ -195,6 +200,95 @@ public class ManagerController {
 
         Integer res = userService.updateUser(user);
         if (res > 0) {
+            // 表示修改成功
+            return "1";
+        }else{
+            // 表示修改失败
+            return "-1";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/backstage/man/showManNotice", produces="text/html;charset=UTF-8;")
+    public String showManNotice(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam("limit") Integer limit) throws JsonProcessingException {
+        // 一页显示10条数据
+        PageHelper.startPage(page,limit);
+
+        List<Notice> noticeList = noticeService.selectAllNotice();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for (Notice notice : noticeList) {
+            notice.setFormatTime(simpleDateFormat.format(notice.getTime()));
+        }
+
+        PageInfo<Notice> noticeInfo = new PageInfo<>(noticeList, 5);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // CourseInfo转换为json字符串
+        return mapper.writeValueAsString(noticeInfo);
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/man/deleteNotice")
+    public String deleteNotice(Integer noticeid, HttpServletRequest request) {
+        Integer res = noticeService.deleteNotice(noticeid);
+        if (res > 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            List<Notice> noticeList = noticeService.selectAllNotice();
+            for (Notice n : noticeList) {
+                n.setFormatTime(simpleDateFormat.format(n.getTime()));
+            }
+            request.getSession().removeAttribute("noticeList");
+            request.getSession().setAttribute("noticeList", noticeList);
+            // 表示删除成功
+            return "1";
+        }else{
+            // 表示删除失败
+            return "-1";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/man/addNotice")
+    public String addNotice(String content, HttpServletRequest request) {
+        Notice notice = new Notice();
+        notice.setContent(content);
+        notice.setTime(new Date());
+
+        Integer res = noticeService.saveNotice(notice);
+        if (res > 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            List<Notice> noticeList = noticeService.selectAllNotice();
+            for (Notice n : noticeList) {
+                n.setFormatTime(simpleDateFormat.format(n.getTime()));
+            }
+            request.getSession().removeAttribute("noticeList");
+            request.getSession().setAttribute("noticeList", noticeList);
+            // 表示添加成功
+            return "1";
+        }else{
+            // 表示添加失败
+            return "-1";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/backstage/man/updateNotice")
+    public String updateNotice(Integer noticeid, String content, HttpServletRequest request) {
+        Notice notice = new Notice();
+        notice.setNoticeid(noticeid);
+        notice.setContent(content);
+        notice.setTime(new Date());
+
+        Integer res = noticeService.updateNotice(notice);
+        if (res > 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            List<Notice> noticeList = noticeService.selectAllNotice();
+            for (Notice n : noticeList) {
+                n.setFormatTime(simpleDateFormat.format(n.getTime()));
+            }
+            request.getSession().removeAttribute("noticeList");
+            request.getSession().setAttribute("noticeList", noticeList);
             // 表示修改成功
             return "1";
         }else{

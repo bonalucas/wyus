@@ -117,6 +117,11 @@ public class TransferController {
         return "admin/courman";
     }
 
+    @RequestMapping("/backstage/man/toNotman")
+    public String toNotman() {
+        return "admin/notman";
+    }
+
     @RequestMapping("/backstage/man/toStuman")
     public String toStuman(HttpServletRequest request) {
         MajorExample majorExample = new MajorExample();

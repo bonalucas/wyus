@@ -10,10 +10,10 @@
 
 <div class="layui-carousel" id="test1" lay-filter="test1">
     <div carousel-item=""  data-value="hover">
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic01.jpg" style="height: 350px; width: 800px" alt=""></div>
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic02.jpg" style="height: 350px; width: 800px" alt=""></div>
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic03.jpg" style="height: 350px; width: 800px" alt=""></div>
-        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic04.jpg" style="height: 350px; width: 800px" alt=""></div>
+        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic01.jpg" style="height: 300px; width: 800px" alt=""></div>
+        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic02.jpg" style="height: 300px; width: 800px" alt=""></div>
+        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic03.jpg" style="height: 300px; width: 800px" alt=""></div>
+        <div><img src="${pageContext.request.contextPath}/imgs/backgrounds/pic04.jpg" style="height: 300px; width: 800px" alt=""></div>
     </div>
 </div>
 <!-- 条目中可以是任意内容，如：<img src=""> -->
@@ -27,7 +27,7 @@
             elem: '#test1'
             ,width: '800px' //设置容器宽度
             ,arrow: 'always' //始终显示箭头
-            ,height: '350px'
+            ,height: '300px'
         });
     });
 </script>

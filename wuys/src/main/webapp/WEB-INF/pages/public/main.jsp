@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -151,6 +152,14 @@
                                class="site-demo-active"
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-form" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;专业管理</a></dd>
+                        <dd><a href="javascript:"
+                               data-url="${pageContext.request.contextPath}/backstage/man/toNotman"
+                               data-id="notman"
+                               data-title="<i class='layui-icon layui-icon-notice'
+                            style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;公告管理"
+                               class="site-demo-active"
+                               data-type="tabAdd"
+                        ><i class="layui-icon layui-icon-notice" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;公告管理</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -170,7 +179,35 @@
                                     </ul>
                                     <div class="layui-tab-content" style="height: 690px">
                                         <div class="layui-tab-item layui-show">
-                                            <iframe src="${pageContext.request.contextPath}/backstage/toCL" width="800px" height="350px"></iframe>
+                                            <iframe src="${pageContext.request.contextPath}/backstage/toCL" width="800px" height="300px"></iframe>
+                                            <div class="layui-bg-gray" style="padding: 20px; height: 370px">
+                                                <div class="layui-row layui-col-space15">
+                                                    <div class="layui-col-md12">
+                                                        <div class="layui-card">
+                                                            <div class="layui-card-header">通知公告</div>
+                                                            <div class="layui-card-body">
+                                                                <div class="layui-carousel" id="test2" style="margin-top: 10px;">
+                                                                    <div carousel-item="">
+                                                                        <c:forEach var="list" items="${sessionScope.noticeList}">
+                                                                            <div>
+                                                                                <ul class="layui-timeline" style="margin: 100px">
+                                                                                    <li class="layui-timeline-item">
+                                                                                        <i class="layui-icon layui-timeline-axis"></i>
+                                                                                        <div class="layui-timeline-content layui-text">
+                                                                                            <h3 class="layui-timeline-title">${list.formatTime}</h3>
+                                                                                            <p>${list.content}</p>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,12 +245,22 @@
     </div>
 </div>
 <script>
-    layui.use(['upload', 'element', 'layer', 'util', 'jquery'], function(){
+    layui.use(['upload', 'element', 'layer', 'util', 'jquery', 'carousel'], function(){
         var element = layui.element
             ,layer = layui.layer
             ,util = layui.util
             ,$ = layui.$
-            ,upload = layui.upload;
+            ,upload = layui.upload
+            ,carousel = layui.carousel;
+
+        //改变下时间间隔、动画类型、高度
+        carousel.render({
+            elem: '#test2'
+            ,interval: 2000
+            ,anim: 'fade'
+            ,width: '740px'
+            ,height: '300px'
+        });
 
         // 时钟定时器
         setInterval(function () {

@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tbabs.pojo.*;
-import com.tbabs.service.CourseService;
-import com.tbabs.service.MajorService;
-import com.tbabs.service.ScheduleService;
-import com.tbabs.service.UserService;
+import com.tbabs.service.*;
 import com.tbabs.utils.FileNameUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -44,6 +41,8 @@ public class UserController {
     private CourseService courseService;
     @Autowired
     private ScheduleService scheduleService;
+    @Autowired
+    private NoticeService noticeService;
 
     @RequestMapping("/reception/user/doLogin")
     public String doLogin(Integer userid, String password, HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String vercode) {
@@ -73,13 +72,14 @@ public class UserController {
         }
         // session处理信息存储
         User user = userService.selectUserById(userid);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         request.getSession().setAttribute("createtime",simpleDateFormat.format(user.getCreationtime()));
         request.getSession().setAttribute("currUser",user);
         Major major = majorService.selectByMajorId(user.getMajorid());
         request.getSession().setAttribute("currMajor", major);
         // 将当前登录时间保存在cookie中
-        String lasttime = simpleDateFormat.format(new Date());
+        String lasttime = simpleDateFormat1.format(new Date());
         Cookie currCookie = new Cookie("lasttime", URLEncoder.encode(lasttime, StandardCharsets.UTF_8));
         response.addCookie(currCookie);
         // 获取上次登录的时间
@@ -93,6 +93,12 @@ public class UserController {
             }
         }
         request.getSession().setAttribute("lasttime", lasttime);
+        // 获取公告信息
+        List<Notice> noticeList = noticeService.selectAllNotice();
+        for (Notice notice : noticeList) {
+            notice.setFormatTime(simpleDateFormat.format(notice.getTime()));
+        }
+        request.getSession().setAttribute("noticeList", noticeList);
         // 重定向主页面
         return "redirect:/backstage/success";
     }

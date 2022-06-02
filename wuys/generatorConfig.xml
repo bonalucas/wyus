@@ -43,11 +43,10 @@
 
 <!--&lt;!&ndash;        指定哪个表的生成策略，生成对应的表&ndash;&gt;-->
 <!--&lt;!&ndash;        <table tableName="indent" domainObjectName="Order"/>&ndash;&gt;-->
-<!--        <table tableName="achievement" />-->
-<!--        <table tableName="course" />-->
-<!--        <table tableName="major" />-->
-<!--        <table tableName="schedule" />-->
-<!--&lt;!&ndash;        <table tableName="comment" />&ndash;&gt;-->
-<!--        <table tableName="user"/>-->
+<!--&lt;!&ndash;        <table tableName="achievement" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <table tableName="course" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <table tableName="major" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <table tableName="schedule" />&ndash;&gt;-->
+<!--        <table tableName="notice"/>-->
 <!--    </context>-->
 <!--</generatorConfiguration>-->
