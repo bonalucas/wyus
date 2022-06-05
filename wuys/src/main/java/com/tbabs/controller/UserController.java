@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -43,6 +44,8 @@ public class UserController {
     private ScheduleService scheduleService;
     @Autowired
     private NoticeService noticeService;
+    @Autowired
+    private AchievementService achievementService;
 
     @RequestMapping("/reception/user/doLogin")
     public String doLogin(Integer userid, String password, HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String vercode) {
@@ -81,6 +84,7 @@ public class UserController {
         // 将当前登录时间保存在cookie中
         String lasttime = simpleDateFormat1.format(new Date());
         Cookie currCookie = new Cookie("lasttime", URLEncoder.encode(lasttime, StandardCharsets.UTF_8));
+        currCookie.setMaxAge((60*60*24)*7);
         response.addCookie(currCookie);
         // 获取上次登录的时间
         Cookie[] cookies = request.getCookies();
@@ -310,5 +314,25 @@ public class UserController {
         }else{
             return "-1";
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/backstage/achievement/showCourGrad", produces="text/html;charset=UTF-8;")
+    public String showCourGrad(@RequestParam(value = "page", defaultValue = "1")Integer page, @RequestParam("limit")Integer limit,
+                                 @RequestParam("courname") String courname, HttpServletRequest request) throws JsonProcessingException {
+        // 一页显示10条数据
+        PageHelper.startPage(page,limit);
+
+        // 获取当前的用户的学号
+        User currUser = (User) request.getSession().getAttribute("currUser");
+
+        List<ScoreInfo> scoreInfoList = achievementService.selectByUserId(currUser.getUserid(), courname);
+
+        PageInfo<ScoreInfo> scoreInfoPageInfo = new PageInfo<>(scoreInfoList, 5);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // CourseInfo转换为json字符串
+        return mapper.writeValueAsString(scoreInfoPageInfo);
     }
 }

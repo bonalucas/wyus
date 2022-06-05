@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tbabs.dao.AchievementMapper">
   <resultMap id="BaseResultMap" type="com.tbabs.pojo.Achievement">
-    <result column="stuId" jdbcType="INTEGER" property="stuid" />
-    <result column="achId" jdbcType="INTEGER" property="achid" />
+    <id column="stuId" jdbcType="INTEGER" property="stuid" />
+    <id column="courId" jdbcType="INTEGER" property="courid" />
     <result column="ach" jdbcType="INTEGER" property="ach" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    stuId, achId, ach
+    stuId, courId, ach
   </sql>
   <select id="selectByExample" parameterType="com.tbabs.pojo.AchievementExample" resultMap="BaseResultMap">
     select
@@ -81,6 +81,18 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="com.tbabs.pojo.AchievementKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from achievement
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courId = #{courid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.tbabs.pojo.AchievementKey">
+    delete from achievement
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courId = #{courid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.tbabs.pojo.AchievementExample">
     delete from achievement
     <if test="_parameter != null">
@@ -88,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tbabs.pojo.Achievement">
-    insert into achievement (stuId, achId, ach
+    insert into achievement (stuId, courId, ach
       )
-    values (#{stuid,jdbcType=INTEGER}, #{achid,jdbcType=INTEGER}, #{ach,jdbcType=INTEGER}
+    values (#{stuid,jdbcType=INTEGER}, #{courid,jdbcType=INTEGER}, #{ach,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tbabs.pojo.Achievement">
@@ -99,8 +111,8 @@
       <if test="stuid != null">
         stuId,
       </if>
-      <if test="achid != null">
-        achId,
+      <if test="courid != null">
+        courId,
       </if>
       <if test="ach != null">
         ach,
@@ -110,8 +122,8 @@
       <if test="stuid != null">
         #{stuid,jdbcType=INTEGER},
       </if>
-      <if test="achid != null">
-        #{achid,jdbcType=INTEGER},
+      <if test="courid != null">
+        #{courid,jdbcType=INTEGER},
       </if>
       <if test="ach != null">
         #{ach,jdbcType=INTEGER},
@@ -130,8 +142,8 @@
       <if test="record.stuid != null">
         stuId = #{record.stuid,jdbcType=INTEGER},
       </if>
-      <if test="record.achid != null">
-        achId = #{record.achid,jdbcType=INTEGER},
+      <if test="record.courid != null">
+        courId = #{record.courid,jdbcType=INTEGER},
       </if>
       <if test="record.ach != null">
         ach = #{record.ach,jdbcType=INTEGER},
@@ -144,10 +156,47 @@
   <update id="updateByExample" parameterType="map">
     update achievement
     set stuId = #{record.stuid,jdbcType=INTEGER},
-      achId = #{record.achid,jdbcType=INTEGER},
+      courId = #{record.courid,jdbcType=INTEGER},
       ach = #{record.ach,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tbabs.pojo.Achievement">
+    update achievement
+    <set>
+      <if test="ach != null">
+        ach = #{ach,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courId = #{courid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tbabs.pojo.Achievement">
+    update achievement
+    set ach = #{ach,jdbcType=INTEGER}
+    where stuId = #{stuid,jdbcType=INTEGER}
+      and courId = #{courid,jdbcType=INTEGER}
+  </update>
+
+  <!-- 课程成绩 -->
+  <resultMap id="SIResultMap" type="com.tbabs.pojo.ScoreInfo">
+    <result column="courId" jdbcType="INTEGER" property="courid" />
+    <result column="courName" jdbcType="VARCHAR" property="courname" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="credit" jdbcType="INTEGER" property="credit" />
+    <result column="ach" jdbcType="INTEGER" property="ach" />
+  </resultMap>
+  <sql id="SI_Column_List">
+    course.courId, courName, semester, period, credit, ach
+  </sql>
+  <select id="selectByUserId" parameterType="java.lang.Object" resultMap="SIResultMap">
+    select
+    <include refid="SI_Column_List" />
+    FROM course, achievement
+    WHERE achievement.courId = course.courId
+    AND stuId = #{userid}
+    AND courName LIKE "%"#{courname}"%"
+    ORDER BY course.courId
+  </select>
 </mapper>

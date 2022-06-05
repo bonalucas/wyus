@@ -116,6 +116,14 @@
                                data-type="tabAdd"
                         ><i class="layui-icon layui-icon-edit" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;个人选课</a></dd>
                         <dd><a href="javascript:"
+                               data-url="${pageContext.request.contextPath}/backstage/toCourgrad"
+                               data-id="courgrad"
+                               data-title="<i class='layui-icon layui-icon-chart'
+                            style='font-size: 14px; font-weight: bold; color: #009688;'></i>&nbsp;&nbsp;课程成绩"
+                               class="site-demo-active"
+                               data-type="tabAdd"
+                        ><i class="layui-icon layui-icon-chart" style="font-size: 18px; color: #1E9FFF;"></i>&nbsp;&nbsp;&nbsp;课程成绩</a></dd>
+                        <dd><a href="javascript:"
                                data-url="${pageContext.request.contextPath}/backstage/toUpkwd"
                                data-id="upkwd"
                                data-title="<i class='layui-icon layui-icon-key'

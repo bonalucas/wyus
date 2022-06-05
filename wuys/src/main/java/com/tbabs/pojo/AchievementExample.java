@@ -164,63 +164,63 @@ public class AchievementExample {
             return (Criteria) this;
         }
 
-        public Criteria andAchidIsNull() {
-            addCriterion("achId is null");
+        public Criteria andCouridIsNull() {
+            addCriterion("courId is null");
             return (Criteria) this;
         }
 
-        public Criteria andAchidIsNotNull() {
-            addCriterion("achId is not null");
+        public Criteria andCouridIsNotNull() {
+            addCriterion("courId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAchidEqualTo(Integer value) {
-            addCriterion("achId =", value, "achid");
+        public Criteria andCouridEqualTo(Integer value) {
+            addCriterion("courId =", value, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidNotEqualTo(Integer value) {
-            addCriterion("achId <>", value, "achid");
+        public Criteria andCouridNotEqualTo(Integer value) {
+            addCriterion("courId <>", value, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidGreaterThan(Integer value) {
-            addCriterion("achId >", value, "achid");
+        public Criteria andCouridGreaterThan(Integer value) {
+            addCriterion("courId >", value, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("achId >=", value, "achid");
+        public Criteria andCouridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("courId >=", value, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidLessThan(Integer value) {
-            addCriterion("achId <", value, "achid");
+        public Criteria andCouridLessThan(Integer value) {
+            addCriterion("courId <", value, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidLessThanOrEqualTo(Integer value) {
-            addCriterion("achId <=", value, "achid");
+        public Criteria andCouridLessThanOrEqualTo(Integer value) {
+            addCriterion("courId <=", value, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidIn(List<Integer> values) {
-            addCriterion("achId in", values, "achid");
+        public Criteria andCouridIn(List<Integer> values) {
+            addCriterion("courId in", values, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidNotIn(List<Integer> values) {
-            addCriterion("achId not in", values, "achid");
+        public Criteria andCouridNotIn(List<Integer> values) {
+            addCriterion("courId not in", values, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidBetween(Integer value1, Integer value2) {
-            addCriterion("achId between", value1, value2, "achid");
+        public Criteria andCouridBetween(Integer value1, Integer value2) {
+            addCriterion("courId between", value1, value2, "courid");
             return (Criteria) this;
         }
 
-        public Criteria andAchidNotBetween(Integer value1, Integer value2) {
-            addCriterion("achId not between", value1, value2, "achid");
+        public Criteria andCouridNotBetween(Integer value1, Integer value2) {
+            addCriterion("courId not between", value1, value2, "courid");
             return (Criteria) this;
         }
 

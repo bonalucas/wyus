@@ -97,6 +97,11 @@ public class TransferController {
         return "user/coursel";
     }
 
+    @RequestMapping("/backstage/toCourgrad")
+    public String toCourgrad() {
+        return "user/courgrad";
+    }
+
     @RequestMapping("/backstage/toUpkwd")
     public String toUpkwd() {
         return "user/upkwd";
