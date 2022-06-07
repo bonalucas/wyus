@@ -18,8 +18,10 @@ public class FilterChainDefinitionMapBuilder {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         // 登出
         map.put("/backstage/doLogout", "logout");
-        // 只要是管理员操作的页面全部需要权限认证
+        // 只有学生才能操作/backstage/man/**
         map.put("/backstage/man/**", "roles[admin]");
+        // 只有学生才能操作/backstage/stu/**
+        map.put("/backstage/stu/**", "roles[user]");
         // 只要是前台的请求全部默认不需要认证
         map.put("/reception/**", "anon");
         // 只要是后台的请求全部需要认证

@@ -134,15 +134,17 @@
                             if (res === "0") {
                                 layer.confirm("确认选择《"+data.courname+"》课程", {icon: 3, title: "再次确认"},function (){
                                     $.ajax({
-                                        url: "${pageContext.request.contextPath}/backstage/schedule/saveSchedule",
+                                        url: "${pageContext.request.contextPath}/backstage/stu/schedule/saveSchedule",
                                         type: "post",
                                         data: {'courid': data.courid},
                                         dataType: "text",
                                         success: function (res1){
                                             if (res1 === "1") {
                                                 layer.msg("选课成功", {icon: 6})
-                                            }else{
+                                            }else if(res1 === "-1"){
                                                 layer.msg("选课失败，系统异常", {icon: 5})
+                                            }else{
+                                                layer.msg("当前用户并非学生，无法选课", {icon: 5})
                                             }
                                         }
                                     });

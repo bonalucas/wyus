@@ -247,7 +247,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("/backstage/schedule/saveSchedule")
+    @RequestMapping("/backstage/stu/schedule/saveSchedule")
     public String saveSchedule(Integer courid, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("currUser");
 
