@@ -24,7 +24,7 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo layui-hide-xs layui-bg-black">
-            <a href="${pageContext.request.contextPath}/backstage/success" style="color: #FFFFFF">五邑大学选课系统</a>
+            <a href="${pageContext.request.contextPath}/backstage/success" style="color: #FFFFFF" id="sub">五邑大学选课系统</a>
         </div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
@@ -43,7 +43,7 @@
             </li>
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:">
-                    <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img">
+                    <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img" alt="头像">
                     ${sessionScope.currUser.username}
                 </a>
                 <dl class="layui-nav-child">
@@ -79,7 +79,7 @@
             <div style="text-align: center;padding-bottom: 15px;padding-top: 15px;padding-right: 25px">
                 <a href="javascript:" style="text-align: center">
                     <a href="javascript:" id="updatePicture" data-method="offset" data-type="auto">
-                        <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img" style="width:110px; height: 110px">
+                        <img src="${pageContext.request.contextPath}/imgs/${sessionScope.currUser.picture}" class="layui-nav-img" style="width:110px; height: 110px" alt="头像">
                     </a>
                     <p style="color: #FFFFFF">
                         欢迎，${sessionScope.currUser.username}
@@ -270,6 +270,28 @@
             ,height: '300px'
         });
 
+        // 刷新数据提示
+        var subtips;
+        $("#sub").hover(function (){
+            openMsg();
+        },function (){
+            layer.close(subtips);
+        });
+        function openMsg(){
+            subtips = layer.tips("点击此处可以进行数据刷新！","#sub", {tips:[2,"#009688"],time:5000});
+        }
+
+        // 提示更换头像
+        var uptips;
+        $("#updatePicture").hover(function (){
+            openUpMsg();
+        },function (){
+            layer.close(uptips);
+        });
+        function openUpMsg(){
+            uptips = layer.tips("点击此处可以更换头像！","#updatePicture", {tips:[2,"#009688"],time:2000});
+        }
+
         // 时钟定时器
         setInterval(function () {
             let dateStr = "";
@@ -368,7 +390,7 @@
                 if (res.code > 0) {
                     return layer.msg('上传失败');
                 }
-                layer.msg('更新图片中', {icon: 16, time: 2000},function (){
+                layer.msg('更新图片中', {icon: 16, time: 1000},function (){
                     $('#demoText').html(''); //置空上传失败的状态
                     window.location.href = "${pageContext.request.contextPath}/backstage/user/updateSession?userId=" + ${sessionScope.currUser.userid}
                 });

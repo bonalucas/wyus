@@ -109,7 +109,7 @@
                 if (res.code > 0) {
                     return layer.msg('上传失败');
                 }
-                layer.msg('更新图片中', {icon: 16, time: 2000},function (){
+                layer.msg('更新图片中', {icon: 16, time: 1000},function (){
                     $('#demoText').html(''); //置空上传失败的状态
                     window.parent.location.href = "${pageContext.request.contextPath}/backstage/user/updateSession?userId=" + ${sessionScope.currUser.userid}
                 });
